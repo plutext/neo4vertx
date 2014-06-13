@@ -55,11 +55,19 @@ public class Neo4jNodes implements Nodes {
 
   @Override
   public void fetch(Object id, Handler<Map<String, Object>> handler) {
-    Node node = finder.getNode(id);
-    if (node == null) {
-      handler.handle(null);
-    } else {
-      handler.handle(PropertyHandler.getProperties(node));
+    Transaction transaction = graphDatabaseService.beginTx();
+    try {
+      Node node = finder.getNode(id);
+      if (node == null) {
+        handler.handle(null);
+      } else {
+        handler.handle(PropertyHandler.getProperties(node));
+      }
+    } catch (Exception exception) {
+      transaction.failure();
+      throw exception;
+    } finally {
+      transaction.finish();
     }
   }
 

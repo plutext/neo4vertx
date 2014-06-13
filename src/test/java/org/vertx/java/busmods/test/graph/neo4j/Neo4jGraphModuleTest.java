@@ -1,6 +1,7 @@
 package org.vertx.java.busmods.test.graph.neo4j;
 
-import org.vertx.java.framework.TestBase;
+import org.vertx.java.testframework.EventLog;
+import org.vertx.java.testframework.TestBase;
 
 public class Neo4jGraphModuleTest extends TestBase {
 
@@ -57,5 +58,6 @@ public class Neo4jGraphModuleTest extends TestBase {
   public void testClear() {
     startTest(getMethodName());
   }
+
 
 }

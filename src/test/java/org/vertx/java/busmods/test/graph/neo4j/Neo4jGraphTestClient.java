@@ -1,11 +1,12 @@
 package org.vertx.java.busmods.test.graph.neo4j;
 
 import org.vertx.java.busmods.graph.neo4j.Neo4jGraphModule;
+import org.vertx.java.core.AsyncResult;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.eventbus.Message;
 import org.vertx.java.core.json.JsonArray;
 import org.vertx.java.core.json.JsonObject;
-import org.vertx.java.framework.TestClientBase;
+import org.vertx.java.testframework.TestClientBase;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,9 +27,9 @@ public class Neo4jGraphTestClient extends TestClientBase {
     configuration.putString("base_address", "test.neo4j-graph");
     configuration.putString("path", "/tmp/graph");
 
-    container.deployVerticle(Neo4jGraphModule.class.getName(), configuration, 1, new Handler<String>() {
+    container.deployVerticle(Neo4jGraphModule.class.getName(), configuration, 1, new Handler<AsyncResult<String>>() {
       @Override
-      public void handle(String deploymentId) {
+      public void handle(AsyncResult deploymentId) {
         tu.appReady();
       }
     });
@@ -42,7 +43,7 @@ public class Neo4jGraphTestClient extends TestClientBase {
 
       @Override
       public void handle(Message<JsonObject> message) {
-        testNodeId = message.body.getLong("id");
+        testNodeId = message.body().getLong("id");
         fetchTestNode(new Handler<String>() {
           @Override
           public void handle(String content) {
@@ -102,7 +103,7 @@ public class Neo4jGraphTestClient extends TestClientBase {
           @Override
           public void handle(Message<JsonObject> message) {
             try {
-              tu.azzert("test node".equals(message.body.getString("content")), "should respond the right content");
+              tu.azzert("test node".equals(message.body().getString("content")), "should respond the right content");
             } finally {
               clearAll(new Handler<Boolean>() {
                 @Override
@@ -154,7 +155,7 @@ public class Neo4jGraphTestClient extends TestClientBase {
 
               @Override
               public void handle(Message<JsonObject> message) {
-                testRelationshipId = message.body.getLong("id");
+                testRelationshipId = message.body().getLong("id");
                 fetchTestRelationship(new Handler<String>() {
                   @Override
                   public void handle(String content) {
@@ -223,7 +224,7 @@ public class Neo4jGraphTestClient extends TestClientBase {
             @Override
             public void handle(Message<JsonObject> message) {
               try {
-                tu.azzert("test relationship".equals(message.body.getString("content")), "should respond the right relationship");
+                tu.azzert("test relationship".equals(message.body().getString("content")), "should respond the right relationship");
               } finally {
                 clearAll(new Handler<Boolean>() {
                   @Override
@@ -250,7 +251,7 @@ public class Neo4jGraphTestClient extends TestClientBase {
             @Override
             public void handle(Message<JsonObject> message) {
               try {
-                tu.azzert("test relationship".equals(((JsonObject)message.body.getArray("relationships").get(0)).getString("content")),
+                tu.azzert("test relationship".equals(((JsonObject)message.body().getArray("relationships").get(0)).getString("content")),
                   "should respond the right relationship");
               } finally {
                 clearAll(new Handler<Boolean>() {
@@ -310,7 +311,7 @@ public class Neo4jGraphTestClient extends TestClientBase {
             @Override
             public void handle(Message<JsonObject> message) {
               try {
-                JsonArray nodes = message.body.getArray("nodes");
+                JsonArray nodes = message.body().getArray("nodes");
                 tu.azzert(nodes != null, "should respond some nodes");
                 tu.azzert(nodes.size() > 0, "should respond at least one node");
                 tu.azzert("test node one".equals(((JsonObject)nodes.get(0)).getString("content")),
@@ -348,7 +349,7 @@ public class Neo4jGraphTestClient extends TestClientBase {
                     @Override
                     public void handle(Set<String> contents) {
                       try {
-                        tu.azzert(message.body.getArray("not_found_node_ids").contains(66666),
+                        tu.azzert(message.body().getArray("not_found_node_ids").contains((long) 66666),
                           "should respond all target node ids that couldn't be found");
 
                         tu.azzert(contents.size() == 1 && contents.contains("test node two"),
@@ -378,9 +379,13 @@ public class Neo4jGraphTestClient extends TestClientBase {
         addTestRelationship("test relationship", new Handler<Long>() {
           @Override
           public void handle(final Long relationshipId) {
+
+            JsonObject someJson = new JsonObject();
+            someJson.putString("foo", "bar");
+
             vertx.eventBus().send(
               "test.neo4j-graph.clear",
-              null,
+              someJson,
               new Handler<Message<JsonObject>>() {
 
               @Override
@@ -416,7 +421,7 @@ public class Neo4jGraphTestClient extends TestClientBase {
 
       @Override
       public void handle(Message<JsonObject> message) {
-        testNodeId = message.body.getLong("id");
+        testNodeId = message.body().getLong("id");
         handler.handle(testNodeId);
       }
     });
@@ -430,7 +435,7 @@ public class Neo4jGraphTestClient extends TestClientBase {
 
       @Override
       public void handle(Message<JsonObject> message) {
-        handler.handle(message.body == null ? null : message.body.getString("content"));
+        handler.handle(message.body() == null ? null : message.body().getString("content"));
       }
     });
   }
@@ -443,7 +448,7 @@ public class Neo4jGraphTestClient extends TestClientBase {
 
         @Override
         public void handle(Message<JsonObject> message) {
-          JsonArray nodes = message.body.getArray("nodes");
+          JsonArray nodes = message.body().getArray("nodes");
           Set<String> contents = new HashSet<>();
           for (Object node : nodes) {
             contents.add(((JsonObject)node).getString("content"));
@@ -467,7 +472,7 @@ public class Neo4jGraphTestClient extends TestClientBase {
 
               @Override
               public void handle(Message<JsonObject> message) {
-                testRelationshipId = message.body.getLong("id");
+                testRelationshipId = message.body().getLong("id");
                 handler.handle(testRelationshipId);
               }
             });
@@ -485,7 +490,7 @@ public class Neo4jGraphTestClient extends TestClientBase {
 
       @Override
       public void handle(Message<JsonObject> message) {
-        handler.handle(message.body == null ? null : message.body.getString("content"));
+        handler.handle(message.body() == null ? null : message.body().getString("content"));
       }
     });
   }
@@ -498,7 +503,7 @@ public class Neo4jGraphTestClient extends TestClientBase {
     vertx.eventBus().send(address, message, new Handler<Message<JsonObject>>() {
       @Override
       public void handle(Message<JsonObject> message) {
-        handler.handle(message.body.getBoolean("done"));
+        handler.handle(message.body().getBoolean("done"));
       }
     });
   }

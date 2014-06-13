@@ -1,6 +1,7 @@
-# me.phifty.neo4j-graph-v1.0
+# me.phifty.neo4j-graph-v1.1
 
-Vert.x module to read and write a neo4j graph database.
+Vert.x module to read and write a Neo4J graph database. Updated to support
+the latest version of Vert.x and Neo4J (both 2.1 at the time of writing).
 
 ## Configuration
 

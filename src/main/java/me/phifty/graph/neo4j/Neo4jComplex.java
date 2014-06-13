@@ -6,6 +6,7 @@ import me.phifty.graph.Handler;
 import org.neo4j.graphdb.*;
 
 import java.util.*;
+import java.util.concurrent.TransferQueue;
 
 /**
  * @author phifty <b.phifty@gmail.com>
@@ -22,35 +23,57 @@ public class Neo4jComplex implements Complex {
 
   @Override
   public void fetchAllRelatedNodes(Object nodeId, String relationshipName, String directionName, final Handler<Iterable<Map<String, Object>>> handler) {
-    final Node node = finder.getNode(nodeId);
-    RelationshipType relationshipType = DynamicRelationshipType.forName(relationshipName);
-    Direction direction = Direction.valueOf(directionName.toUpperCase());
 
-    final Iterable<Relationship> relationships = node.getRelationships(relationshipType, direction);
-    handler.handle(new Iterable<Map<String, Object>>() {
-      @Override
-      public Iterator<Map<String, Object>> iterator() {
-        final Iterator<Relationship> iterator = relationships.iterator();
-        return new Iterator<Map<String, Object>>() {
-          @Override
-          public boolean hasNext() {
-            return iterator.hasNext();
-          }
+    Transaction transaction = graphDatabaseService.beginTx();
+    final Node node;
+    try {
+      node = finder.getNode(nodeId);
+      RelationshipType relationshipType = DynamicRelationshipType.forName(relationshipName);
+      Direction direction = Direction.valueOf(directionName.toUpperCase());
 
-          @Override
-          public Map<String, Object> next() {
-            Relationship relationship = iterator.next();
-            Node targetNode = relationship.getOtherNode(node);
-            return PropertyHandler.getProperties(targetNode);
-          }
+      final Iterable<Relationship> relationships = node.getRelationships(relationshipType, direction);
+      handler.handle(new Iterable<Map<String, Object>>() {
 
-          @Override
-          public void remove() {
-            iterator.remove();
-          }
-        };
-      }
-    });
+        @Override
+        public Iterator<Map<String, Object>> iterator() {
+          final Iterator<Relationship> iterator = relationships.iterator();
+          return new Iterator<Map<String, Object>>() {
+            @Override
+            public boolean hasNext() {
+              return iterator.hasNext();
+            }
+
+            @Override
+            public Map<String, Object> next() {
+              Relationship relationship = iterator.next();
+              Transaction transaction = graphDatabaseService.beginTx();
+              try {
+                Node targetNode = relationship.getOtherNode(node);
+                return PropertyHandler.getProperties(targetNode);
+              } catch (Exception exception) {
+                transaction.failure();
+                throw exception;
+              } finally {
+                transaction.finish();
+              }
+
+
+            }
+
+            @Override
+            public void remove() {
+              iterator.remove();
+            }
+          };
+        }
+      });
+
+    } catch (Exception exception) {
+        transaction.failure();
+        throw exception;
+    } finally {
+        transaction.finish();
+    }
   }
 
   @Override

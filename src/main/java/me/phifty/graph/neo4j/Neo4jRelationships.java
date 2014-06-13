@@ -63,44 +63,72 @@ public class Neo4jRelationships implements Relationships {
 
   @Override
   public void fetch(Object id, Handler<Map<String, Object>> handler) {
-    Relationship relationship = finder.getRelationship(id);
-    if (relationship == null) {
-      handler.handle(null);
-    } else {
-      handler.handle(PropertyHandler.getProperties(relationship));
+    Transaction transaction = graphDatabaseService.beginTx();
+    try {
+      Relationship relationship = finder.getRelationship(id);
+      if (relationship == null) {
+        handler.handle(null);
+      } else {
+        handler.handle(PropertyHandler.getProperties(relationship));
+      }
+
+    } catch (Exception exception) {
+      transaction.failure();
+      throw exception;
+    } finally {
+      transaction.finish();
     }
   }
 
   @Override
   public void fetchAllOfNode(Object nodeId, Handler<Iterable<Map<String, Object>>> handler) {
-    Node node = finder.getNode(nodeId);
-    if (node == null) {
-      handler.handle(new ArrayList<Map<String, Object>>());
-    } else {
-      final Iterable<Relationship> relationships = node.getRelationships();
-      handler.handle(new Iterable<Map<String, Object>>() {
-        @Override
-        public Iterator<Map<String, Object>> iterator() {
-          final Iterator<Relationship> relationshipsIterator = relationships.iterator();
-          return new Iterator<Map<String, Object>>() {
-            @Override
-            public boolean hasNext() {
-              return relationshipsIterator.hasNext();
-            }
+    Transaction transaction = graphDatabaseService.beginTx();
+    try {
+      Node node = finder.getNode(nodeId);
+      if (node == null) {
+        handler.handle(new ArrayList<Map<String, Object>>());
+      } else {
+        final Iterable<Relationship> relationships = node.getRelationships();
+        handler.handle(new Iterable<Map<String, Object>>() {
+          @Override
+          public Iterator<Map<String, Object>> iterator() {
+            final Iterator<Relationship> relationshipsIterator = relationships.iterator();
+            return new Iterator<Map<String, Object>>() {
+              @Override
+              public boolean hasNext() {
+                return relationshipsIterator.hasNext();
+              }
 
-            @Override
-            public Map<String, Object> next() {
-              return PropertyHandler.getProperties(relationshipsIterator.next());
-            }
+              @Override
+              public Map<String, Object> next() {
+                Transaction transaction = graphDatabaseService.beginTx();
+                try {
+                  return PropertyHandler.getProperties(relationshipsIterator.next());
+                } catch (Exception exception) {
+                  transaction.failure();
+                  throw exception;
+                } finally {
+                  transaction.finish();
+                }
 
-            @Override
-            public void remove() {
-              relationshipsIterator.remove();
-            }
-          };
-        }
-      });
+              }
+
+              @Override
+              public void remove() {
+                relationshipsIterator.remove();
+              }
+            };
+          }
+        });
+      }
+
+    } catch (Exception exception) {
+      transaction.failure();
+      throw exception;
+    } finally {
+      transaction.finish();
     }
+
   }
 
   @Override
