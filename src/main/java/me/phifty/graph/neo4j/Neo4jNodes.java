@@ -33,7 +33,7 @@ public class Neo4jNodes implements Nodes {
       transaction.failure();
       throw exception;
     } finally {
-      transaction.finish();
+      transaction.close();
     }
   }
 
@@ -49,7 +49,7 @@ public class Neo4jNodes implements Nodes {
       transaction.failure();
       throw exception;
     } finally {
-      transaction.finish();
+      transaction.close();
     }
   }
 
@@ -63,11 +63,14 @@ public class Neo4jNodes implements Nodes {
       } else {
         handler.handle(PropertyHandler.getProperties(node));
       }
+
+      transaction.success();
+
     } catch (Exception exception) {
       transaction.failure();
       throw exception;
     } finally {
-      transaction.finish();
+      transaction.close();
     }
   }
 
@@ -83,7 +86,7 @@ public class Neo4jNodes implements Nodes {
       transaction.failure();
       throw exception;
     } finally {
-      transaction.finish();
+      transaction.close();
     }
   }
 

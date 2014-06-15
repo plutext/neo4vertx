@@ -72,12 +72,13 @@ public class Neo4jGraph implements Graph {
       }
 
       transaction.success();
+
       handler.handle(true);
     } catch (Exception exception) {
       transaction.failure();
       throw exception;
     } finally {
-      transaction.finish();
+      transaction.close();
     }
   }
 

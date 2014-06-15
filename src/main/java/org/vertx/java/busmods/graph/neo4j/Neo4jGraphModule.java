@@ -54,6 +54,7 @@ public class Neo4jGraphModule extends Verticle {
     final Graph database = this.database;
     vertx.eventBus().registerHandler(configuration.getBaseAddress() + ".nodes.store", new Handler<Message<JsonObject>>() {
       @Override
+      @SuppressWarnings("unchecked")
       public void handle(final Message<JsonObject> message) {
         Map<String, Object> body = message.body().toMap();
         Map<String, Object> properties = body.containsKey("properties") ? (Map<String, Object>)body.get("properties") : null;
@@ -128,6 +129,7 @@ public class Neo4jGraphModule extends Verticle {
     final Graph database = this.database;
     vertx.eventBus().registerHandler(configuration.getBaseAddress() + ".relationships.store", new Handler<Message<JsonObject>>() {
       @Override
+      @SuppressWarnings("unchecked")
       public void handle(final Message<JsonObject> message) {
         Map<String, Object> body = message.body().toMap();
         Map<String, Object> properties = body.containsKey("properties") ? (Map<String, Object>)body.get("properties") : null;

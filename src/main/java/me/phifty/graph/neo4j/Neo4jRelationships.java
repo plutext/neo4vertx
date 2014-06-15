@@ -39,7 +39,7 @@ public class Neo4jRelationships implements Relationships {
       transaction.failure();
       throw exception;
     } finally {
-      transaction.finish();
+      transaction.close();
     }
   }
 
@@ -57,7 +57,7 @@ public class Neo4jRelationships implements Relationships {
       transaction.failure();
       throw exception;
     } finally {
-      transaction.finish();
+      transaction.close();
     }
   }
 
@@ -66,6 +66,7 @@ public class Neo4jRelationships implements Relationships {
     Transaction transaction = graphDatabaseService.beginTx();
     try {
       Relationship relationship = finder.getRelationship(id);
+      transaction.success();
       if (relationship == null) {
         handler.handle(null);
       } else {
@@ -76,7 +77,7 @@ public class Neo4jRelationships implements Relationships {
       transaction.failure();
       throw exception;
     } finally {
-      transaction.finish();
+      transaction.close();
     }
   }
 
@@ -101,16 +102,16 @@ public class Neo4jRelationships implements Relationships {
 
               @Override
               public Map<String, Object> next() {
-                Transaction transaction = graphDatabaseService.beginTx();
+                Transaction innerTransaction = graphDatabaseService.beginTx();
                 try {
+                  innerTransaction.success();
                   return PropertyHandler.getProperties(relationshipsIterator.next());
                 } catch (Exception exception) {
-                  transaction.failure();
+                  innerTransaction.failure();
                   throw exception;
                 } finally {
-                  transaction.finish();
+                  innerTransaction.close();
                 }
-
               }
 
               @Override
@@ -122,11 +123,13 @@ public class Neo4jRelationships implements Relationships {
         });
       }
 
+      transaction.success();
+
     } catch (Exception exception) {
       transaction.failure();
       throw exception;
     } finally {
-      transaction.finish();
+      transaction.close();
     }
 
   }
@@ -144,7 +147,7 @@ public class Neo4jRelationships implements Relationships {
       transaction.failure();
       throw exception;
     } finally {
-      transaction.finish();
+      transaction.close();
     }
   }
 

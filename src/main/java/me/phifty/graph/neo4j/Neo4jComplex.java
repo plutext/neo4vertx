@@ -6,7 +6,6 @@ import me.phifty.graph.Handler;
 import org.neo4j.graphdb.*;
 
 import java.util.*;
-import java.util.concurrent.TransferQueue;
 
 /**
  * @author phifty <b.phifty@gmail.com>
@@ -49,12 +48,13 @@ public class Neo4jComplex implements Complex {
               Transaction transaction = graphDatabaseService.beginTx();
               try {
                 Node targetNode = relationship.getOtherNode(node);
+                transaction.success();
                 return PropertyHandler.getProperties(targetNode);
               } catch (Exception exception) {
                 transaction.failure();
                 throw exception;
               } finally {
-                transaction.finish();
+                transaction.close();
               }
 
 
@@ -68,11 +68,13 @@ public class Neo4jComplex implements Complex {
         }
       });
 
+      transaction.success();
+
     } catch (Exception exception) {
         transaction.failure();
         throw exception;
     } finally {
-        transaction.finish();
+        transaction.close();
     }
   }
 
@@ -121,12 +123,13 @@ public class Neo4jComplex implements Complex {
       }
 
       transaction.success();
+
       handler.handle(new ComplexResetNodeRelationshipsResult(addedNodeIds, removedNodeIds, notFoundNodeIds));
     } catch (Exception exception) {
       transaction.failure();
       throw exception;
     } finally {
-      transaction.finish();
+      transaction.close();
     }
   }
 
