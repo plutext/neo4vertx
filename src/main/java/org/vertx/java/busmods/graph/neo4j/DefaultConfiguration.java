@@ -3,28 +3,33 @@ package org.vertx.java.busmods.graph.neo4j;
 import java.io.File;
 
 /**
- * @author phifty <b.phifty@gmail.com>
+ * The DefaultConfiguration object.
+ *
+ * @author Philipp Brüll <b.phifty@gmail.com>
+ * @author Rubin Simons <rubin.simons@raaftech.com>
+ * @since 2012-12-13
+ * @version 1.1.1
  */
 public class DefaultConfiguration implements Configuration {
 
-  @Override
-  public String getBaseAddress() {
-    return "neo4j-graph";
-  }
+    @Override
+    public String getBaseAddress() {
+        return "neo4j-graph";
+    }
 
-  @Override
-  public String getPath() {
-    return System.getProperty("user.home") + File.pathSeparator + "graph";
-  }
+    @Override
+    public String getPath() {
+        return System.getProperty("user.dir") + File.separator + "db";
+    }
 
-  @Override
-  public String getAlternateNodeIdField() {
-    return null;
-  }
+    @Override
+    public String getAlternateNodeIdField() {
+        return null;
+    }
 
-  @Override
-  public String getAlternateRelationshipIdField() {
-    return null;
-  }
+    @Override
+    public String getAlternateRelationshipIdField() {
+        return null;
+    }
 
 }
