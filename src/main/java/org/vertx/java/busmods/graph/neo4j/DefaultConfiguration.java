@@ -13,13 +13,18 @@ import java.io.File;
 public class DefaultConfiguration implements Configuration {
 
     @Override
-    public String getBaseAddress() {
-        return "neo4j-graph";
+    public String getMode() {
+        return "embedded";
     }
 
     @Override
     public String getPath() {
         return System.getProperty("user.dir") + File.separator + "db";
+    }
+
+    @Override
+    public String getBaseAddress() {
+        return "neo4j-graph";
     }
 
     @Override

@@ -22,8 +22,8 @@ public class JsonConfiguration implements Configuration {
     }
 
     @Override
-    public String getBaseAddress() {
-        return object.getString("base_address", defaultConfiguration.getBaseAddress());
+    public String getMode() {
+        return object.getString("mode", defaultConfiguration.getMode());
     }
 
     @Override
@@ -32,13 +32,18 @@ public class JsonConfiguration implements Configuration {
     }
 
     @Override
+    public String getBaseAddress() {
+        return object.getString("baseAddress", defaultConfiguration.getBaseAddress());
+    }
+
+    @Override
     public String getAlternateNodeIdField() {
-        return object.getString("alternate_node_id_field", defaultConfiguration.getAlternateNodeIdField());
+        return object.getString("alternateNodeIdField", defaultConfiguration.getAlternateNodeIdField());
     }
 
     @Override
     public String getAlternateRelationshipIdField() {
-        return object.getString("alternate_relationship_id_field", defaultConfiguration.getAlternateRelationshipIdField());
+        return object.getString("alternateRelationshipIdField", defaultConfiguration.getAlternateRelationshipIdField());
     }
 
 }

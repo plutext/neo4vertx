@@ -25,7 +25,7 @@ directory.
     {
       "mode": "embedded",      # embedded, embedded-with-gui, remote 
       "path": "/var/graph",    # the path where to store the database
-      "base_address": "graph"  # the vertx base address of the module
+      "baseAddress": "graph"   # the vertx base address of the module
     }
 
 

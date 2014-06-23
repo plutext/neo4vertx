@@ -78,10 +78,7 @@ public class Neo4jGraphModule extends Verticle {
     }
 
     private void initializeDatabase() {
-        database = new Neo4jGraph(
-            configuration.getPath(),
-            configuration.getAlternateNodeIdField(),
-            configuration.getAlternateRelationshipIdField());
+        database = new Neo4jGraph(configuration);
     }
 
     private void registerStoreNodeHandler() {

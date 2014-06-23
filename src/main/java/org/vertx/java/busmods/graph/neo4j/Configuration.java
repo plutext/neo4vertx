@@ -9,9 +9,11 @@ package org.vertx.java.busmods.graph.neo4j;
  */
 public interface Configuration {
 
-    public String getBaseAddress();
+    public String getMode();
 
     public String getPath();
+
+    public String getBaseAddress();
 
     public String getAlternateNodeIdField();
 

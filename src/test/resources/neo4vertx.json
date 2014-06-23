@@ -1,5 +1,5 @@
 {
     "mode": "embedded",
     "path": "target/db",
-    "base_address": "test.neo4j-graph"
+    "baseAddress": "test.neo4j-graph"
 }

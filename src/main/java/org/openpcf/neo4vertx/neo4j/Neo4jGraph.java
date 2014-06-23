@@ -9,6 +9,7 @@ import org.openpcf.neo4vertx.*;
 import org.neo4j.kernel.GraphDatabaseAPI;
 import org.neo4j.server.WrappingNeoServerBootstrapper;
 import org.neo4j.server.Bootstrapper;
+import org.vertx.java.busmods.graph.neo4j.Configuration;
 
 /**
  * The Neo4jGraph object.
@@ -26,25 +27,42 @@ public class Neo4jGraph implements Graph {
     private Relationships relationships;
     private Complex complex;
 
+    public Neo4jGraph(Configuration configuration) {
+        this(configuration.getMode(), configuration.getPath(), configuration.getAlternateNodeIdField(), configuration.getAlternateRelationshipIdField(), new Neo4jGraphDatabaseServiceFactory());
+    }
+
     public Neo4jGraph(String path) {
-        this(path, null, null, new Neo4jGraphDatabaseServiceFactory());
+        this("embedded", path, null, null, new Neo4jGraphDatabaseServiceFactory());
     }
 
     public Neo4jGraph(String path, String alternateNodeIdField) {
-        this(path, alternateNodeIdField, null, new Neo4jGraphDatabaseServiceFactory());
+        this("embedded", path, alternateNodeIdField, null, new Neo4jGraphDatabaseServiceFactory());
     }
 
     public Neo4jGraph(String path, String alternateNodeIdField, String alternateRelationshipIdField) {
-        this(path, alternateNodeIdField, alternateRelationshipIdField, new Neo4jGraphDatabaseServiceFactory());
+        this("embedded", path, alternateNodeIdField, alternateRelationshipIdField, new Neo4jGraphDatabaseServiceFactory());
     }
 
     public Neo4jGraph(String path, String alternateNodeIdField, String alternateRelationshipIdField, GraphDatabaseServiceFactory graphDatabaseServiceFactory) {
+        this("embedded", path, alternateNodeIdField, alternateRelationshipIdField, new Neo4jGraphDatabaseServiceFactory());
+    }
+
+    public Neo4jGraph(String mode, String path, String alternateNodeIdField, String alternateRelationshipIdField, GraphDatabaseServiceFactory graphDatabaseServiceFactory) {
 
         graphDatabaseService = graphDatabaseServiceFactory.create(path);
 
-        bootStrapper = new WrappingNeoServerBootstrapper((GraphDatabaseAPI)graphDatabaseService);
-        bootStrapper.start();
-
+        switch (mode) {
+            case "embedded":
+                break;
+            case "embedded-with-gui":
+                bootStrapper = new WrappingNeoServerBootstrapper((GraphDatabaseAPI)graphDatabaseService);
+                bootStrapper.start();
+                break;
+            case "remote":
+                break;
+            default:
+                break;
+        }
 
         Finder finder = new Finder(graphDatabaseService, alternateNodeIdField, alternateRelationshipIdField);
         nodes = new Neo4jNodes(graphDatabaseService, finder);
@@ -93,7 +111,10 @@ public class Neo4jGraph implements Graph {
 
     @Override
     public void shutdown() {
-        bootStrapper.stop();
+        if (bootStrapper != null ) {
+            bootStrapper.stop();
+        }
+
         graphDatabaseService.shutdown();
     }
 
