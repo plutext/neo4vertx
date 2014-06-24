@@ -11,7 +11,6 @@ Vert.x 1.3 talk to Neo4j 1.9M1 (https://github.com/phifty/vertx-neo4j-graph).
 
  * A Vert.x 2.1 module to talk to an embedded Neo4J 2.1 database
  * Option to specify enablement of Neo4J web interface
- * Option to talk to a remote Neo4J instance (work in progress)
  * Maven build to automatically create a module with dependencies
  
 
@@ -23,7 +22,7 @@ the module or you can put it in 'neo4vertx.json' in the Java resources
 directory.
 
     {
-      "mode": "embedded",      # embedded, embedded-with-gui, remote 
+      "mode": "embedded",      # embedded, embedded-with-gui
       "path": "/var/graph",    # the path where to store the database
       "baseAddress": "graph"   # the vertx base address of the module
     }
