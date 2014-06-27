@@ -1,4 +1,4 @@
-# org.openpcf.neo4vertx 1.1.1
+# org.openpcf.neo4vertx 1.1.x
 
 Vert.x module to read and write a Neo4J graph database. Updated to support
 the latest version of Vert.x and Neo4J (both 2.1 at the time of writing).
