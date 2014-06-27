@@ -19,7 +19,6 @@ import java.util.Map;
 public class Neo4jRelationships implements Relationships {
 
     private GraphDatabaseService graphDatabaseService;
-
     private Finder finder;
 
     public Neo4jRelationships(GraphDatabaseService graphDatabaseService, Finder finder) {

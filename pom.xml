@@ -3,12 +3,70 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
     <groupId>org.openpcf</groupId>
     <artifactId>neo4vertx</artifactId>
     <packaging>jar</packaging>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <name>neo4vertx</name>
-    <url>https://www.openpcf.org</url>
+
+    <description>
+        Vert.x module to read and write a Neo4J graph database. Updated to support
+        the latest version of Vert.x and Neo4J (both 2.1 at the time of writing).
+    </description>
+
+    <url>https://www.openpcf.org/projects/externals</url>
+
+    <licenses>
+        <license>
+            <name>GNU General Public License (GPL) version 3.0</name>
+            <url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>Open Provisioning and Control Framework</name>
+        <url>https://www.openpcf.org/</url>
+    </organization>
+
+    <scm>
+        <url>https://svn.openpcf.org/externals/trunk</url>
+        <connection>scm:svn:https://svn.openpcf.org/externals/trunk</connection>
+        <developerConnection>scm:svn:https://svn.openpcf.org/externals/trunk</developerConnection>
+    </scm>
+
+    <issueManagement>
+        <system>OpenPCF JIRA</system>
+        <url>https://jira.openpcf.org/</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>OpenPCF Bamboo</system>
+        <url>https://boo.openpcf.org/</url>
+    </ciManagement>
+
+    <developers>
+        <developer>
+            <id>rubin</id>
+            <email>rubin@openpcf.org</email>
+            <name>Rubin Simons</name>
+            <organization>Open Provisioning and Control Framework</organization>
+            <organizationUrl>https://www.openpcf.org/</organizationUrl>
+        </developer>
+        <developer>
+            <id>freek</id>
+            <email>freek@openpcf.org</email>
+            <name>Freek Alleman</name>
+            <organization>Open Provisioning and Control Framework</organization>
+            <organizationUrl>https://www.openpcf.org/</organizationUrl>
+        </developer>
+    </developers>
 
     <properties>
         <!-- Generic settings -->
@@ -21,6 +79,7 @@
         <vertx.version>2.1</vertx.version>
         <vertx.testtools.version>2.0.3-final</vertx.testtools.version>
         <junit.version>4.11</junit.version>
+        <gpg.keyname>C6E91526</gpg.keyname>
 
         <!-- Plugin versions -->
         <maven.compiler.plugin.version>3.0</maven.compiler.plugin.version>
@@ -31,30 +90,12 @@
         <maven.failsafe.plugin.version>2.14</maven.failsafe.plugin.version>
         <maven.surefire.report.plugin.version>2.14</maven.surefire.report.plugin.version>
         <maven.javadoc.plugin.version>2.9.1</maven.javadoc.plugin.version>
+        <maven.source.plugin.version>2.2.1</maven.source.plugin.version>
         <maven.dependency.plugin.version>2.7</maven.dependency.plugin.version>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>sonatype-nexus-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </repository>
-        <repository>
-            <id>neo4j-release-repository</id>
-            <name>Neo4j Maven 2 release repository</name>
-            <url>http://m2.neo4j.org/releases</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-
-    </repositories>
 
     <dependencies>
-
         <!-- Generic dependencies -->
         <dependency>
             <groupId>io.vertx</groupId>
@@ -124,7 +165,6 @@
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>io.vertx</groupId>
                 <artifactId>vertx-maven-plugin</artifactId>
@@ -167,6 +207,7 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>${maven.resources.plugin.version}</version>
@@ -189,6 +230,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -218,6 +260,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -228,6 +271,7 @@
                     </includes>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
@@ -242,6 +286,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
@@ -259,8 +304,64 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <arguments>-Psonatype-oss-release</arguments>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven.source.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven.javadoc.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
+
     <reporting>
         <plugins>
             <plugin>
@@ -268,14 +369,21 @@
                 <artifactId>maven-surefire-report-plugin</artifactId>
                 <version>${maven.surefire.report.plugin.version}</version>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven.javadoc.plugin.version}</version>
-                <configuration>
-                    <aggregate>true</aggregate>
-                </configuration>
-            </plugin>
         </plugins>
     </reporting>
+
+    <distributionManagement>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <name>Nexus Staging Repository</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Nexus Snapshots Repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 </project>
