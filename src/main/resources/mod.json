@@ -4,7 +4,7 @@
     "author": "Open Provisioning and Control Framework",
     "developers": ["Rubin Simons", "Freek Alleman", "Philipp Brüll" ],
     "homepage": "https://www.openpcf.org/projects/externals",
-    "licenses": "GNU General Public License (GPL) version 3.0",
+    "licenses": "Apache License, Version 2.0",
     "main": "org.vertx.java.busmods.graph.neo4j.Neo4jGraphModule",
     "auto-redeploy": true
 }
