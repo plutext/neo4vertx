@@ -4,11 +4,15 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.Transaction;
-import org.neo4j.tooling.GlobalGraphOperations;
-import org.openpcf.neo4vertx.*;
 import org.neo4j.kernel.GraphDatabaseAPI;
-import org.neo4j.server.WrappingNeoServerBootstrapper;
 import org.neo4j.server.Bootstrapper;
+import org.neo4j.server.WrappingNeoServerBootstrapper;
+import org.neo4j.tooling.GlobalGraphOperations;
+import org.openpcf.neo4vertx.Complex;
+import org.openpcf.neo4vertx.Graph;
+import org.openpcf.neo4vertx.Handler;
+import org.openpcf.neo4vertx.Nodes;
+import org.openpcf.neo4vertx.Relationships;
 import org.vertx.java.busmods.graph.neo4j.Configuration;
 
 /**
@@ -16,16 +20,14 @@ import org.vertx.java.busmods.graph.neo4j.Configuration;
  *
  * @author Philipp Brüll <b.phifty@gmail.com>
  * @author Rubin Simons <rubin.simons@raaftech.com>
- * @since 2012-12-13
- * @version 1.1.1
  */
 public class Neo4jGraph implements Graph {
 
-    private GraphDatabaseService graphDatabaseService;
+    private final GraphDatabaseService graphDatabaseService;
     private Bootstrapper bootStrapper;
-    private Nodes nodes;
-    private Relationships relationships;
-    private Complex complex;
+    private final Nodes nodes;
+    private final Relationships relationships;
+    private final Complex complex;
 
     public Neo4jGraph(Configuration configuration) {
         this(configuration.getMode(), configuration.getPath(), configuration.getAlternateNodeIdField(), configuration.getAlternateRelationshipIdField(), new Neo4jGraphDatabaseServiceFactory());

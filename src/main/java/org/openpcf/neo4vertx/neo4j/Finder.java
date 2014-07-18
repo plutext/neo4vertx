@@ -10,14 +10,12 @@ import org.neo4j.graphdb.index.AutoIndexer;
  * The Finder object.
  *
  * @author Philipp Brüll <b.phifty@gmail.com>
- * @since 2012-12-13
- * @version 1.0.0
  */
 public class Finder {
 
-    private GraphDatabaseService graphDatabaseService;
-    private String alternateNodeIdField;
-    private String alternateRelationshipIdField;
+    private final GraphDatabaseService graphDatabaseService;
+    private final String alternateNodeIdField;
+    private final String alternateRelationshipIdField;
     private AutoIndexer<Node> nodeAutoIndexer;
     private AutoIndexer<Relationship> relationshipAutoIndexer;
 
@@ -44,7 +42,7 @@ public class Finder {
 
     public Node getNode(Object id) {
         if (hasAlternateNodeIdField()) {
-            return nodeAutoIndexer.getAutoIndex().get(alternateNodeIdField, (String) id).getSingle();
+            return nodeAutoIndexer.getAutoIndex().get(alternateNodeIdField, id).getSingle();
         } else {
             try {
                 return graphDatabaseService.getNodeById((Long) id);
@@ -64,7 +62,7 @@ public class Finder {
 
     public Relationship getRelationship(Object id) {
         if (hasAlternateRelationshipIdField()) {
-            return relationshipAutoIndexer.getAutoIndex().get(alternateRelationshipIdField, (String) id).getSingle();
+            return relationshipAutoIndexer.getAutoIndex().get(alternateRelationshipIdField, id).getSingle();
         } else {
             try {
                 return graphDatabaseService.getRelationshipById((Long) id);

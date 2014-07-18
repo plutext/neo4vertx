@@ -8,13 +8,11 @@ import org.vertx.java.core.json.JsonObject;
  * The JsonConfiguration object.
  *
  * @author Philipp Brüll <b.phifty@gmail.com>
- * @since 2012-12-13
- * @version 1.0.0
  */
 public class JsonConfiguration implements Configuration {
 
-    private JsonObject object;
-    private Configuration defaultConfiguration;
+    private final JsonObject object;
+    private final Configuration defaultConfiguration;
 
     public JsonConfiguration(JsonObject object) {
         this.object = object;

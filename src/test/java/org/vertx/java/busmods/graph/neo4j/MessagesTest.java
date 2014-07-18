@@ -7,8 +7,6 @@ import org.vertx.java.core.json.JsonObject;
  * The MessagesTest object.
  *
  * @author Philipp Brüll <b.phifty@gmail.com>
- * @since 2012-12-13
- * @version 1.0.0
  */
 public class MessagesTest {
 

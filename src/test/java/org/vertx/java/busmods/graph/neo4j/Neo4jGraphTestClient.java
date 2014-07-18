@@ -1,5 +1,8 @@
 package org.vertx.java.busmods.graph.neo4j;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.vertx.java.core.AsyncResult;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.eventbus.Message;
@@ -7,16 +10,11 @@ import org.vertx.java.core.json.JsonArray;
 import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.testframework.TestClientBase;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * The Neo4jGraphTestClient object.
  *
  * @author Philipp Brüll <b.phifty@gmail.com>
  * @author Rubin Simons <rubin.simons@raaftech.com>
- * @since 2012-12-13
- * @version 1.1.1
  */
 public class Neo4jGraphTestClient extends TestClientBase {
 

@@ -1,5 +1,13 @@
 package org.vertx.java.busmods.graph.neo4j;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import org.openpcf.neo4vertx.ComplexResetNodeRelationshipsResult;
 import org.openpcf.neo4vertx.Graph;
 import org.openpcf.neo4vertx.neo4j.Neo4jGraph;
@@ -10,19 +18,11 @@ import org.vertx.java.core.json.JsonArray;
 import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.platform.Verticle;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.*;
-
 /**
  * The Neo4jGraphModule object.
  *
  * @author Philipp Brüll <b.phifty@gmail.com>
  * @author Rubin Simons <rubin.simons@raaftech.com>
- * @since 2012-12-13
- * @version 1.1.1
  */
 public class Neo4jGraphModule extends Verticle {
 

@@ -1,30 +1,30 @@
 package org.openpcf.neo4vertx.neo4j;
 
-import org.openpcf.neo4vertx.ComplexResetNodeRelationshipsResult;
-import org.openpcf.neo4vertx.Graph;
-import org.openpcf.neo4vertx.FakeHandler;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.*;
+import org.openpcf.neo4vertx.ComplexResetNodeRelationshipsResult;
+import org.openpcf.neo4vertx.FakeHandler;
+import org.openpcf.neo4vertx.Graph;
 
 /**
  * The Neo4jComplexTest object.
  *
  * @author Philipp Brüll <b.phifty@gmail.com>
  * @author Rubin Simons <rubin.simons@raaftech.com>
- * @since 2012-12-13
- * @version 1.1.1
  */
 public class Neo4jComplexTest {
 
-    private FakeHandler<Object> idHandler = new FakeHandler<>();
-    private FakeHandler<Iterable<Object>> idsHandler = new FakeHandler<>();
-    private FakeHandler<Iterable<Map<String, Object>>> nodesHandler = new FakeHandler<>();
-    private FakeHandler<Iterable<Map<String, Object>>> relationshipsHandler = new FakeHandler<>();
-    private FakeHandler<ComplexResetNodeRelationshipsResult> resetNodeRelationshipsHandler = new FakeHandler<>();
+    private final FakeHandler<Object> idHandler = new FakeHandler<>();
+    private final FakeHandler<Iterable<Object>> idsHandler = new FakeHandler<>();
+    private final FakeHandler<Iterable<Map<String, Object>>> nodesHandler = new FakeHandler<>();
+    private final FakeHandler<Iterable<Map<String, Object>>> relationshipsHandler = new FakeHandler<>();
+    private final FakeHandler<ComplexResetNodeRelationshipsResult> resetNodeRelationshipsHandler = new FakeHandler<>();
     private Map<String, Object> properties;
     private Graph graph;
     private Object fromNodeId;

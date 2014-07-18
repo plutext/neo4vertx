@@ -7,8 +7,6 @@ import java.io.File;
  *
  * @author Philipp Brüll <b.phifty@gmail.com>
  * @author Rubin Simons <rubin.simons@raaftech.com>
- * @since 2012-12-13
- * @version 1.1.1
  */
 public class DefaultConfiguration implements Configuration {
 
