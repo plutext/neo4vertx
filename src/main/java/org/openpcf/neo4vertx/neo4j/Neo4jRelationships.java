@@ -1,25 +1,27 @@
 package org.openpcf.neo4vertx.neo4j;
 
-import org.openpcf.neo4vertx.Handler;
-import org.openpcf.neo4vertx.Relationships;
-import org.neo4j.graphdb.*;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
+
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Relationship;
+import org.neo4j.graphdb.RelationshipType;
+import org.neo4j.graphdb.Transaction;
+import org.openpcf.neo4vertx.Handler;
+import org.openpcf.neo4vertx.Relationships;
 
 /**
  * The Neo4jRelationships object.
  *
  * @author Philipp Brüll <b.phifty@gmail.com>
  * @author Rubin Simons <rubin.simons@raaftech.com>
- * @since 2012-12-13
- * @version 1.1.1
  */
 public class Neo4jRelationships implements Relationships {
 
-    private GraphDatabaseService graphDatabaseService;
-    private Finder finder;
+    private final GraphDatabaseService graphDatabaseService;
+    private final Finder finder;
 
     public Neo4jRelationships(GraphDatabaseService graphDatabaseService, Finder finder) {
         this.graphDatabaseService = graphDatabaseService;

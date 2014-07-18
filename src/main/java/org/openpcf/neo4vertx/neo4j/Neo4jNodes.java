@@ -1,25 +1,23 @@
 package org.openpcf.neo4vertx.neo4j;
 
-import org.openpcf.neo4vertx.Handler;
-import org.openpcf.neo4vertx.Nodes;
+import java.util.Map;
+
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
-
-import java.util.Map;
+import org.openpcf.neo4vertx.Handler;
+import org.openpcf.neo4vertx.Nodes;
 
 /**
  * The Neo4jNodes object.
  *
  * @author Philipp Brüll <b.phifty@gmail.com>
  * @author Rubin Simons <rubin.simons@raaftech.com>
- * @since 2012-12-13
- * @version 1.1.1
  */
 public class Neo4jNodes implements Nodes {
 
-    private GraphDatabaseService graphDatabaseService;
-    private Finder finder;
+    private final GraphDatabaseService graphDatabaseService;
+    private final Finder finder;
 
     public Neo4jNodes(GraphDatabaseService graphDatabaseService, Finder finder) {
         this.graphDatabaseService = graphDatabaseService;

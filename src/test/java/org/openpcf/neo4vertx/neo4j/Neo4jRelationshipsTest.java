@@ -1,29 +1,27 @@
 package org.openpcf.neo4vertx.neo4j;
 
-import org.openpcf.neo4vertx.Graph;
-import org.openpcf.neo4vertx.FakeHandler;
+import java.util.Map;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Map;
+import org.openpcf.neo4vertx.FakeHandler;
+import org.openpcf.neo4vertx.Graph;
 
 /**
  * The Neo4jRelationshipsTest object.
  *
  * @author Philipp Brüll <b.phifty@gmail.com>
  * @author Rubin Simons <rubin.simons@raaftech.com>
- * @since 2012-12-13
- * @version 1.1.1
  */
 public class Neo4jRelationshipsTest {
 
-    private FakeHandler<Object> idHandler = new FakeHandler<>();
-    private FakeHandler<Boolean> doneHandler = new FakeHandler<>();
-    private FakeHandler<Map<String, Object>> nodeHandler = new FakeHandler<>();
-    private FakeHandler<Map<String, Object>> relationshipHandler = new FakeHandler<>();
-    private FakeHandler<Iterable<Map<String, Object>>> relationshipsHandler = new FakeHandler<>();
+    private final FakeHandler<Object> idHandler = new FakeHandler<>();
+    private final FakeHandler<Boolean> doneHandler = new FakeHandler<>();
+    private final FakeHandler<Map<String, Object>> nodeHandler = new FakeHandler<>();
+    private final FakeHandler<Map<String, Object>> relationshipHandler = new FakeHandler<>();
+    private final FakeHandler<Iterable<Map<String, Object>>> relationshipsHandler = new FakeHandler<>();
     private Map<String, Object> properties;
     private Object fromNodeId;
     private Object toNodeId;

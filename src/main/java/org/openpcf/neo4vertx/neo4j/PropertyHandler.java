@@ -1,16 +1,14 @@
 package org.openpcf.neo4vertx.neo4j;
 
-import org.neo4j.graphdb.PropertyContainer;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import org.neo4j.graphdb.PropertyContainer;
 
 /**
  * The Neo4jGraphDatabaseServiceFactory object.
  *
  * @author Philipp Brüll <b.phifty@gmail.com>
- * @since 2012-12-13
- * @version 1.0.0
  */
 public class PropertyHandler {
 

@@ -1,9 +1,5 @@
 package org.openpcf.neo4vertx.neo4j;
 
-import org.vertx.java.busmods.graph.neo4j.Configuration;
-import org.vertx.java.busmods.graph.neo4j.json.JsonConfiguration;
-import org.vertx.java.core.json.JsonObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,13 +8,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.vertx.java.busmods.graph.neo4j.Configuration;
+import org.vertx.java.busmods.graph.neo4j.json.JsonConfiguration;
+import org.vertx.java.core.json.JsonObject;
+
 /**
  * The Fixtures object.
  *
  * @author Philipp Brüll <b.phifty@gmail.com>
  * @author Rubin Simons <rubin.simons@raaftech.com>
- * @since 2012-12-13
- * @version 1.1.1
  */
 public class Fixtures {
 

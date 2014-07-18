@@ -1,19 +1,25 @@
 package org.openpcf.neo4vertx.neo4j;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
+import org.neo4j.graphdb.Direction;
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Relationship;
+import org.neo4j.graphdb.RelationshipType;
+import org.neo4j.graphdb.Transaction;
 import org.openpcf.neo4vertx.Complex;
 import org.openpcf.neo4vertx.ComplexResetNodeRelationshipsResult;
 import org.openpcf.neo4vertx.Handler;
-import org.neo4j.graphdb.*;
-
-import java.util.*;
 
 /**
  * The Neo4jComplex object.
  *
  * @author Philipp Brüll <b.phifty@gmail.com>
  * @author Rubin Simons <rubin.simons@raaftech.com>
- * @since 2012-12-13
- * @version 1.1.1
  */
 public class Neo4jComplex implements Complex {
 

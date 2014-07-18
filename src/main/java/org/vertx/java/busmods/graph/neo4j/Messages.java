@@ -1,17 +1,15 @@
 package org.vertx.java.busmods.graph.neo4j;
 
+import java.util.Map;
+
 import org.openpcf.neo4vertx.ComplexResetNodeRelationshipsResult;
 import org.vertx.java.core.json.JsonArray;
 import org.vertx.java.core.json.JsonObject;
-
-import java.util.Map;
 
 /**
  * The Messages object.
  *
  * @author Philipp Brüll <b.phifty@gmail.com>
- * @since 2012-12-13
- * @version 1.0.0
  */
 public class Messages {
 
