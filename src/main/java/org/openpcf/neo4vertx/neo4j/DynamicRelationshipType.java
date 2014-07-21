@@ -8,7 +8,7 @@ import org.neo4j.graphdb.RelationshipType;
 /**
  * The DynamicRelationshipType object.
  *
- * @author Philipp Brüll <b.phifty@gmail.com>
+ * @author mailto:b.phifty@gmail.com[Philipp Brüll]
  */
 public class DynamicRelationshipType implements RelationshipType {
 

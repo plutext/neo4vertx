@@ -357,6 +357,14 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <doclet>org.asciidoctor.Asciidoclet</doclet>
+                    <docletArtifact>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoclet</artifactId>
+                        <version>0.1.4</version>
+                    </docletArtifact>
+                </configuration>
             </plugin>
 
         </plugins>

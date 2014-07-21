@@ -3,7 +3,7 @@ package org.vertx.java.busmods.graph.neo4j;
 /**
  * The Configuration interface.
  *
- * @author Philipp Brüll <b.phifty@gmail.com>
+ * @author mailto:b.phifty@gmail.com[Philipp Brüll]
  */
 public interface Configuration {
 

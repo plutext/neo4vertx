@@ -5,7 +5,7 @@ import org.neo4j.graphdb.GraphDatabaseService;
 /**
  * The GraphDatabaseServiceFactory interface.
  *
- * @author Philipp Brüll <b.phifty@gmail.com>
+ * @author mailto:b.phifty@gmail.com[Philipp Brüll]
  */
 public interface GraphDatabaseServiceFactory {
 

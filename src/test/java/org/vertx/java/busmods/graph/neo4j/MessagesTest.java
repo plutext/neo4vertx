@@ -6,7 +6,7 @@ import org.vertx.java.core.json.JsonObject;
 /**
  * The MessagesTest object.
  *
- * @author Philipp Brüll <b.phifty@gmail.com>
+ * @author mailto:b.phifty@gmail.com[Philipp Brüll]
  */
 public class MessagesTest {
 

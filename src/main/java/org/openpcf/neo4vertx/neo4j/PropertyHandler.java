@@ -8,7 +8,7 @@ import org.neo4j.graphdb.PropertyContainer;
 /**
  * The Neo4jGraphDatabaseServiceFactory object.
  *
- * @author Philipp Brüll <b.phifty@gmail.com>
+ * @author mailto:b.phifty@gmail.com[Philipp Brüll]
  */
 public class PropertyHandler {
 

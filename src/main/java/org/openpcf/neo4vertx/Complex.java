@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * The Complex interface.
  *
- * @author Philipp Brüll <b.phifty@gmail.com>
+ * @author mailto:b.phifty@gmail.com[Philipp Brüll]
  */
 public interface Complex {
 
