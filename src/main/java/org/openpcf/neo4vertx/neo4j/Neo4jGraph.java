@@ -20,53 +20,79 @@ import org.vertx.java.busmods.graph.neo4j.Configuration;
  *
  * @author mailto:b.phifty@gmail.com[Philipp Brüll]
  * @author mailto:rubin.simons@raaftech.com[Rubin Simons]
+ * @author https://github.com/Jotschi[Johannes Schüth]
  */
 public class Neo4jGraph implements Graph {
 
-    private final GraphDatabaseService graphDatabaseService;
+    public final static String EMBEDDED_MODE = "embedded";
+    public final static String EMBEDDED_HA_MODE = "embedded-ha";
+    public final static String REMOTE_MODE = "remote";
+    public final static String EMBEDDED_GUI_MODE = "embedded-with-gui";
+
+    private GraphDatabaseService graphDatabaseService;
     private Bootstrapper bootStrapper;
-    private final Nodes nodes;
-    private final Relationships relationships;
-    private final Complex complex;
+    private Nodes nodes;
+    private Relationships relationships;
+    private Complex complex;
 
+    /**
+     * Create an embedded Neo4j graph instance
+     * 
+     * @param configuration
+     *            configuration for the graph
+     */
     public Neo4jGraph(Configuration configuration) {
-        this(configuration.getMode(), configuration.getPath(), configuration.getAlternateNodeIdField(), configuration.getAlternateRelationshipIdField(), new Neo4jGraphDatabaseServiceFactory());
+        initialize(configuration, null);
     }
 
-    public Neo4jGraph(String path) {
-        this("embedded", path, null, null, new Neo4jGraphDatabaseServiceFactory());
+    /**
+     * Create an embedded Neo4j graph instance
+     * 
+     * @param configuration
+     *            configuration for the graph
+     * @param customServiceFactory
+     *            factory that should be used regardless of the factory that would otherwise be chosen by
+     *            examining the configuration object.
+     */
+    public Neo4jGraph(Configuration configuration, GraphDatabaseServiceFactory customServiceFactory) {
+        initialize(configuration, customServiceFactory);
     }
 
-    public Neo4jGraph(String path, String alternateNodeIdField) {
-        this("embedded", path, alternateNodeIdField, null, new Neo4jGraphDatabaseServiceFactory());
-    }
+    /**
+     * Initialize the graph using the given configuration settings. The customServiceFactory will be utilized when specified.
+     * @param customServiceFactory Custom service factory
+     * @param conf neo4j module configuration
+     */
+    private void initialize(Configuration conf, GraphDatabaseServiceFactory customServiceFactory) {
+        final String mode = conf.getMode();
 
-    public Neo4jGraph(String path, String alternateNodeIdField, String alternateRelationshipIdField) {
-        this("embedded", path, alternateNodeIdField, alternateRelationshipIdField, new Neo4jGraphDatabaseServiceFactory());
-    }
-
-    public Neo4jGraph(String path, String alternateNodeIdField, String alternateRelationshipIdField, GraphDatabaseServiceFactory graphDatabaseServiceFactory) {
-        this("embedded", path, alternateNodeIdField, alternateRelationshipIdField, new Neo4jGraphDatabaseServiceFactory());
-    }
-
-    public Neo4jGraph(String mode, String path, String alternateNodeIdField, String alternateRelationshipIdField, GraphDatabaseServiceFactory graphDatabaseServiceFactory) {
-
-        graphDatabaseService = graphDatabaseServiceFactory.create(path);
-
-        switch (mode) {
-            case "embedded":
-                break;
-            case "embedded-with-gui":
-                bootStrapper = new WrappingNeoServerBootstrapper((GraphDatabaseAPI)graphDatabaseService);
-                bootStrapper.start();
-                break;
-            case "remote":
-                break;
-            default:
-                break;
+        GraphDatabaseServiceFactory neo4jServiceFactory = customServiceFactory;
+        // Check for the HA mode. In case of HA we need to utilize a different
+        // service factory. Don't overwrite the customServiceFactory when it has been set
+        if (neo4jServiceFactory == null && EMBEDDED_HA_MODE.equalsIgnoreCase(mode)) {
+            neo4jServiceFactory = new Neo4jGraphDatabaseHAServiceFactory();
+        } else if (neo4jServiceFactory == null) {
+            neo4jServiceFactory = new Neo4jGraphDatabaseServiceFactory();
         }
 
-        Finder finder = new Finder(graphDatabaseService, alternateNodeIdField, alternateRelationshipIdField);
+        graphDatabaseService = neo4jServiceFactory.create(conf);
+
+        switch (mode) {
+        case EMBEDDED_HA_MODE:
+            break;
+        case EMBEDDED_MODE:
+            break;
+        case EMBEDDED_GUI_MODE:
+            bootStrapper = new WrappingNeoServerBootstrapper((GraphDatabaseAPI)graphDatabaseService);
+            bootStrapper.start();
+            break;
+        case REMOTE_MODE:
+            break;
+        default:
+            break;
+        }
+
+        Finder finder = new Finder(graphDatabaseService, conf.getAlternateNodeIdField(), conf.getAlternateRelationshipIdField());
         nodes = new Neo4jNodes(graphDatabaseService, finder);
         relationships = new Neo4jRelationships(graphDatabaseService, finder);
         complex = new Neo4jComplex(graphDatabaseService, finder);

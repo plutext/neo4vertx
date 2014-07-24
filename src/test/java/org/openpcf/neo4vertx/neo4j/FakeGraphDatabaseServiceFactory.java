@@ -2,6 +2,7 @@ package org.openpcf.neo4vertx.neo4j;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.test.TestGraphDatabaseFactory;
+import org.vertx.java.busmods.graph.neo4j.Configuration;
 
 /**
  * The FakeGraphDatabaseServiceFactory object.
@@ -14,6 +15,11 @@ public class FakeGraphDatabaseServiceFactory implements GraphDatabaseServiceFact
     @Override
     public GraphDatabaseService create(String path) {
         return new TestGraphDatabaseFactory().newImpermanentDatabaseBuilder().newGraphDatabase();
+    }
+
+    @Override
+    public GraphDatabaseService create(Configuration configuration) {
+        return create("");
     }
 
 }

@@ -26,8 +26,7 @@ public class AbstractNeo4jTest {
 
     @Before
     public void setUp() throws Exception {
-        graph = new Neo4jGraph(Fixtures.getConfig().getPath(), Fixtures.NODE_ID_FIELD,
-                Fixtures.RELATIONSHIP_ID_FIELD,
+        graph = new Neo4jGraph(new TestConfiguration(),
                 new FakeGraphDatabaseServiceFactory());
     }
 
