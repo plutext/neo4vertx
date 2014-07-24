@@ -66,6 +66,10 @@
             <organization>Open Provisioning and Control Framework</organization>
             <organizationUrl>https://www.openpcf.org/</organizationUrl>
         </developer>
+        <developer>
+            <id>jotschi</id>
+            <name>Johannes Schüth</name>
+        </developer>
     </developers>
 
     <properties>
