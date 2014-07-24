@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.log4j.Logger;
 import org.openpcf.neo4vertx.ComplexResetNodeRelationshipsResult;
 import org.openpcf.neo4vertx.Graph;
 import org.openpcf.neo4vertx.neo4j.Neo4jGraph;
@@ -21,33 +23,40 @@ import org.vertx.java.platform.Verticle;
 /**
  * The Neo4jGraphModule object.
  *
- * @author Philipp Brüll <b.phifty@gmail.com>
- * @author Rubin Simons <rubin.simons@raaftech.com>
+ * @author mailto:b.phifty@gmail.com[Philipp Brüll]
+ * @author mailto:rubin.simons@raaftech.com[Rubin Simons]
  */
 public class Neo4jGraphModule extends Verticle {
 
+    private static final Logger logger = Logger.getLogger(Neo4jGraphModule.class);
     private Configuration configuration;
     private Graph database;
 
     @Override
     public void start() {
-        initializeConfiguration();
-        initializeDatabase();
-        registerStoreNodeHandler();
-        registerFetchNodeHandler();
-        registerRemoveNodeHandler();
-        registerStoreRelationshipHandler();
-        registerFetchRelationshipHandler();
-        registerFetchAllRelationshipsOfNodeHandler();
-        registerRemoveRelationshipHandler();
-        registerComplexFetchAllRelatedNodes();
-        registerComplexResettingOfNodeRelationships();
-        registerClearHandler();
+        try {
+            initializeConfiguration();
+            initializeDatabase();
+            registerStoreNodeHandler();
+            registerFetchNodeHandler();
+            registerRemoveNodeHandler();
+            registerStoreRelationshipHandler();
+            registerFetchRelationshipHandler();
+            registerFetchAllRelationshipsOfNodeHandler();
+            registerRemoveRelationshipHandler();
+            registerComplexFetchAllRelatedNodes();
+            registerComplexResettingOfNodeRelationships();
+            registerClearHandler();
+        } catch (ConfigurationException e) {
+            logger.error("Error while starting the Neo4j graph module.",e);
+        }
     }
 
     @Override
     public void stop() {
-        database.shutdown();
+        if (database != null) {
+            database.shutdown();
+        }
         super.stop();
     }
 
@@ -77,7 +86,7 @@ public class Neo4jGraphModule extends Verticle {
         }
     }
 
-    private void initializeDatabase() {
+    private void initializeDatabase() throws ConfigurationException {
         database = new Neo4jGraph(configuration);
     }
 
@@ -282,16 +291,16 @@ public class Neo4jGraphModule extends Verticle {
 
                 try {
                     database.complex().resetNodeRelationships(
-                        nodeId,
-                        name,
-                        targetIds,
-                        new org.openpcf.neo4vertx.Handler<ComplexResetNodeRelationshipsResult>() {
+                            nodeId,
+                            name,
+                            targetIds,
+                            new org.openpcf.neo4vertx.Handler<ComplexResetNodeRelationshipsResult>() {
 
-                            @Override
-                            public void handle(ComplexResetNodeRelationshipsResult value) {
-                                message.reply(Messages.resetNodeRelationships(value));
-                            }
-                        });
+                                @Override
+                                public void handle(ComplexResetNodeRelationshipsResult value) {
+                                    message.reply(Messages.resetNodeRelationships(value));
+                                }
+                            });
                 } catch (Exception exception) {
                     getContainer().logger().error("error while resetting node relationships", exception);
                 }

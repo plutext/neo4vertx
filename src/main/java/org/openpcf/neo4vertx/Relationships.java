@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * The Relationships interface.
  *
- * @author Philipp Brüll <b.phifty@gmail.com>
+ * @author mailto:b.phifty@gmail.com[Philipp Brüll]
  */
 public interface Relationships {
 

@@ -122,6 +122,11 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-ha</artifactId>
+            <version>2.1.2</version>
+        </dependency>
+        <dependency>
             <groupId>org.neo4j.app</groupId>
             <artifactId>neo4j-server</artifactId>
             <classifier>static-web</classifier>
@@ -357,6 +362,14 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <doclet>org.asciidoctor.Asciidoclet</doclet>
+                    <docletArtifact>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoclet</artifactId>
+                        <version>0.1.4</version>
+                    </docletArtifact>
+                </configuration>
             </plugin>
 
         </plugins>

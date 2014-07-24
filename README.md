@@ -21,12 +21,33 @@ this configuration using the standard Vert.x parameter '-conf' when loading
 the module or you can put it in 'neo4vertx.json' in the Java resources 
 directory.
 
+### Example for embedded neo4j
+
     {
-      "mode": "embedded",      # embedded, embedded-with-gui
+      "mode": "embedded",      # embedded, embedded-with-gui, embedded-ha
       "path": "/var/graph",    # the path where to store the database
       "baseAddress": "graph"   # the vertx base address of the module
     }
 
+### Example for embedded neo4j in HA cluster mode
+
+It is also possible to switch to neo4j HA cluster mode. You can do so by setting
+the mode to 'embedded-ha'. This is useful if you want to share neo4j graph data
+in between multiple vert.x instances.
+
+{
+    "mode": "embedded-ha",
+    "path": "/tmp/graph-master",
+    "baseAddress": "graph",
+    "ha.initial_hosts": "localhost:5001,localhost:5002",
+    "ha.server_id": "1",
+    "ha.server": "localhost:6001",
+    "ha.slave_only": "false",
+    "ha.cluster_server": "localhost:5001"
+}
+
+Please refer to the http://docs.neo4j.org/chunked/stable/ha-setup-tutorial.html[neo4j HA documentation]
+for more information about the various neo4j ha settings.
 
 ## License
 

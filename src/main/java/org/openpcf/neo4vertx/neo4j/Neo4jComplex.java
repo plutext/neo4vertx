@@ -18,8 +18,8 @@ import org.openpcf.neo4vertx.Handler;
 /**
  * The Neo4jComplex object.
  *
- * @author Philipp Brüll <b.phifty@gmail.com>
- * @author Rubin Simons <rubin.simons@raaftech.com>
+ * @author mailto:b.phifty@gmail.com[Philipp Brüll]
+ * @author mailto:rubin.simons@raaftech.com[Rubin Simons]
  */
 public class Neo4jComplex implements Complex {
 
