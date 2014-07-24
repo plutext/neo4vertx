@@ -4,13 +4,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.openpcf.neo4vertx.ComplexResetNodeRelationshipsResult;
 import org.openpcf.neo4vertx.FakeHandler;
-import org.openpcf.neo4vertx.Graph;
 
 /**
  * The Neo4jComplexTest object.
@@ -18,48 +16,22 @@ import org.openpcf.neo4vertx.Graph;
  * @author mailto:b.phifty@gmail.com[Philipp Brüll]
  * @author mailto:rubin.simons@raaftech.com[Rubin Simons]
  */
-public class Neo4jComplexTest {
+public class Neo4jComplexTest extends AbstractNeo4jTest {
 
-    private final FakeHandler<Object> idHandler = new FakeHandler<>();
-    private final FakeHandler<Iterable<Object>> idsHandler = new FakeHandler<>();
-    private final FakeHandler<Iterable<Map<String, Object>>> nodesHandler = new FakeHandler<>();
-    private final FakeHandler<Iterable<Map<String, Object>>> relationshipsHandler = new FakeHandler<>();
-    private final FakeHandler<ComplexResetNodeRelationshipsResult> resetNodeRelationshipsHandler = new FakeHandler<>();
-    private Map<String, Object> properties;
-    private Graph graph;
-    private Object fromNodeId;
-    private Object toNodeId;
-
-    @Before
-    public void setUp() throws Exception {
-        graph = new Neo4jGraph(
-            Fixtures.getConfig().getPath(),
-            Fixtures.NODE_ID_FIELD,
-            Fixtures.RELATIONSHIP_ID_FIELD,
-            new FakeGraphDatabaseServiceFactory());
-    }
-
-    @After
-    public void tearDown() {
-        idHandler.reset();
-        idsHandler.reset();
-        nodesHandler.reset();
-        relationshipsHandler.reset();
-        resetNodeRelationshipsHandler.reset();
-        graph.shutdown();
-    }
+    private FakeHandler<Iterable<Map<String, Object>>> nodeHandler = new FakeHandler<>();
+    private FakeHandler<ComplexResetNodeRelationshipsResult> resetNodeRelationshipsHandler = new FakeHandler<>();
 
     @Test
     public void testFetchAllRelatedNodes() throws Exception {
         addTestRelationship();
 
-        graph.complex().fetchAllRelatedNodes(fromNodeId, "connected", "outgoing", nodesHandler);
-        assertTestNode(nodesHandler.getValue().iterator().next());
+        graph.complex().fetchAllRelatedNodes(fromNodeId, "connected", "outgoing", nodeHandler);
+        assertTestNode(nodeHandler.getValue().iterator().next());
 
         DynamicRelationshipType.clearCache();
 
-        graph.complex().fetchAllRelatedNodes(fromNodeId, "connected", "outgoing", nodesHandler);
-        assertTestNode(nodesHandler.getValue().iterator().next());
+        graph.complex().fetchAllRelatedNodes(fromNodeId, "connected", "outgoing", nodeHandler);
+        assertTestNode(nodeHandler.getValue().iterator().next());
     }
 
     @Test
@@ -75,51 +47,29 @@ public class Neo4jComplexTest {
         graph.complex().resetNodeRelationships(id, "connected", targetIds, resetNodeRelationshipsHandler);
 
         Set<Object> addedNodeIds = resetNodeRelationshipsHandler.getValue().addedNodeIds;
-        Assert.assertEquals(2, addedNodeIds.size());
-        Assert.assertTrue(addedNodeIds.contains(targetIdOne));
-        Assert.assertTrue(addedNodeIds.contains(targetIdTwo));
+        assertEquals(2, addedNodeIds.size());
+        assertTrue(addedNodeIds.contains(targetIdOne));
+        assertTrue(addedNodeIds.contains(targetIdTwo));
 
         Set<Object> removedNodeIds = resetNodeRelationshipsHandler.getValue().removedNodeIds;
-        Assert.assertEquals(0, removedNodeIds.size());
+        assertEquals(0, removedNodeIds.size());
 
         targetIds.remove(targetIdTwo);
         graph.complex().resetNodeRelationships(id, "connected", targetIds, resetNodeRelationshipsHandler);
 
         addedNodeIds = resetNodeRelationshipsHandler.getValue().addedNodeIds;
-        Assert.assertEquals(0, addedNodeIds.size());
+        assertEquals(0, addedNodeIds.size());
 
         removedNodeIds = resetNodeRelationshipsHandler.getValue().removedNodeIds;
-        Assert.assertEquals(1, removedNodeIds.size());
-        Assert.assertTrue(removedNodeIds.contains(targetIdTwo));
+        assertEquals(1, removedNodeIds.size());
+        assertTrue(removedNodeIds.contains(targetIdTwo));
 
         graph.relationships().fetchAllOfNode(id, relationshipsHandler);
-        Assert.assertTrue(relationshipsHandler.getValue().iterator().hasNext());
-    }
-
-    private Object addTestNode() throws Exception {
-        properties = Fixtures.testNode();
-        graph.nodes().create(properties, idHandler);
-        return currentNodeId();
-    }
-
-    private Object addTestRelationship() throws Exception {
-        fromNodeId = addTestNode();
-        toNodeId = addTestNode();
-        properties = Fixtures.testRelationship();
-        graph.relationships().create(fromNodeId, toNodeId, "connected", properties, idHandler);
-        return currentRelationshipId();
-    }
-
-    private Object currentNodeId() {
-        return Fixtures.NODE_ID_FIELD == null ? idHandler.getValue() : properties.get(Fixtures.NODE_ID_FIELD);
-    }
-
-    private Object currentRelationshipId() {
-        return Fixtures.RELATIONSHIP_ID_FIELD == null ? idHandler.getValue() : properties.get(Fixtures.RELATIONSHIP_ID_FIELD);
+        assertTrue(relationshipsHandler.getValue().iterator().hasNext());
     }
 
     private void assertTestNode(Map<String, Object> properties) {
-        Assert.assertEquals("test node", properties.get("content"));
+        assertEquals("test node", properties.get("content"));
     }
 
 }

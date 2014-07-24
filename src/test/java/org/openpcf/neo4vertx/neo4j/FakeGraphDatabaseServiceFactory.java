@@ -7,6 +7,7 @@ import org.neo4j.test.TestGraphDatabaseFactory;
  * The FakeGraphDatabaseServiceFactory object.
  *
  * @author mailto:b.phifty@gmail.com[Philipp Brüll]
+ * @author https://github.com/Jotschi[Johannes Schüth]
  */
 public class FakeGraphDatabaseServiceFactory implements GraphDatabaseServiceFactory {
 
