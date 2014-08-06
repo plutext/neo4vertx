@@ -15,6 +15,10 @@ public class Neo4jGraphModuleTest extends TestBase {
         startApp(Neo4jGraphTestClient.class.getName());
     }
 
+    public void testRunQuery() {
+        startTest(getMethodName());
+    }
+
     public void testCreateNode() {
         startTest(getMethodName());
     }

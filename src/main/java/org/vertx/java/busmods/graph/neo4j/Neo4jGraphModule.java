@@ -37,6 +37,7 @@ public class Neo4jGraphModule extends Verticle {
         try {
             initializeConfiguration();
             initializeDatabase();
+            registerQueryHandler();
             registerStoreNodeHandler();
             registerFetchNodeHandler();
             registerRemoveNodeHandler();
@@ -88,6 +89,25 @@ public class Neo4jGraphModule extends Verticle {
 
     private void initializeDatabase() throws ConfigurationException {
         database = new Neo4jGraph(configuration);
+    }
+
+    private void registerQueryHandler() {
+        final Graph database = this.database;
+        vertx.eventBus().registerHandler(configuration.getBaseAddress() + ".cypher.query", new Handler<Message<JsonObject>>() {
+            @Override
+            public void handle(final Message<JsonObject> message) {
+                try {
+                    database.query(message.body(), new org.openpcf.neo4vertx.Handler<String>() {
+                        @Override
+                        public void handle(String value) {
+                            message.reply(value);
+                        }
+                    });
+                } catch (Exception exception) {
+                    getContainer().logger().error("error while executing query", exception);
+                }
+            }
+        });
     }
 
     private void registerStoreNodeHandler() {

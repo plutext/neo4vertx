@@ -3,6 +3,7 @@ package org.vertx.java.busmods.graph.neo4j;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.openpcf.neo4vertx.neo4j.Fixtures;
 import org.vertx.java.core.AsyncResult;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.eventbus.Message;
@@ -31,6 +32,36 @@ public class Neo4jGraphTestClient extends TestClientBase {
                 tu.appReady();
             }
         });
+    }
+
+    public void testRunQuery() {
+
+        vertx.eventBus().send(
+            "test.neo4j-graph.cypher.query",
+            Fixtures.testJsonCypherQuery(),
+            new Handler<Message<JsonObject>>() {
+
+                @Override
+                public void handle(Message<JsonObject> message) {
+
+                    JsonObject testJsonCypherQueryResults = new JsonObject("{\"query\" : \"MATCH (n) RETURN n\"}");
+
+
+                    vertx.eventBus().send(
+                        "test.neo4j-graph.cypher.query",
+                        testJsonCypherQueryResults,
+                        new Handler<Message<JsonObject>>() {
+                            @Override
+                            public void handle(Message<JsonObject> message) {
+
+                                System.out.println("DEBUG: (message.body()): " + message.body());
+                                tu.testComplete();
+                            }
+                        }
+                    );
+                }
+            }
+        );
     }
 
     public void testCreateNode() {

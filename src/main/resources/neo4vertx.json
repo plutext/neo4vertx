@@ -1,5 +1,6 @@
 {
-    "mode": "embedded",
+    "mode": "embedded-with-gui",
     "path": "/tmp/graph",
-    "baseAddress": "neo4j-graph"
+    "baseAddress": "neo4j-graph",
+    "restUrls": [ "", "" ]
 }

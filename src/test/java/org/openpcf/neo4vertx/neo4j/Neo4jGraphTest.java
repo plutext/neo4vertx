@@ -1,9 +1,10 @@
 package org.openpcf.neo4vertx.neo4j;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
+import org.vertx.java.core.json.JsonObject;
+
+import java.util.Map;
+import static org.junit.Assert.*;
 
 /**
  * The Neo4jGraphTest object.
@@ -28,4 +29,19 @@ public class Neo4jGraphTest extends AbstractNeo4jTest {
         assertNull(relationshipHandler.getValue());
     }
 
+
+    private void assertTestNode(Map<String, Object> properties) {
+        assertEquals("test node", properties.get("content"));
+    }
+
+    @Test
+    public void testQuery() throws Exception {
+        Object nodeId = addTestNode();
+
+        graph.nodes().fetch(nodeId, nodeHandler);
+        assertTestNode(nodeHandler.getValue());
+
+
+        graph.query(Fixtures.testJsonCypherQuery(), stringHandler);
+    }
 }

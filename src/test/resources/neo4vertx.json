@@ -1,5 +1,5 @@
 {
-    "mode": "embedded",
+    "mode": "embedded-with-gui",
     "path": "target/db",
     "baseAddress": "test.neo4j-graph"
 }

@@ -80,4 +80,19 @@ public class Fixtures {
         return result;
     }
 
+    public static JsonObject testJsonCypherQuery() {
+        return new JsonObject( "{\n" +
+         "  \"query\" : \"CREATE (n:Person { props } ) RETURN n\",\n" +
+         "  \"params\" : {\n" +
+         "    \"props\" : [ {\n" +
+         "      \"name\" : \"Rubin\",\n" +
+         "      \"position\" : \"Developer\"\n" +
+         "    }, {\n" +
+         "      \"name\" : \"Freek\",\n" +
+         "      \"position\" : \"Developer\"\n" +
+         "    } ]\n" +
+         "  }\n" +
+         "}");
+    }
+
 }

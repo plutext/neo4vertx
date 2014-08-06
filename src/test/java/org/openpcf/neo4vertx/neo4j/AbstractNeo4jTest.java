@@ -21,6 +21,7 @@ public class AbstractNeo4jTest {
     protected final FakeHandler<Map<String, Object>> nodeHandler = new FakeHandler<>();
     protected final FakeHandler<Map<String, Object>> relationshipHandler = new FakeHandler<>();
     protected final FakeHandler<Iterable<Map<String, Object>>> relationshipsHandler = new FakeHandler<>();
+    protected final FakeHandler<String> stringHandler = new FakeHandler<>();
     protected Object fromNodeId;
     protected Object toNodeId;
 

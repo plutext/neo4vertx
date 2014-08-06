@@ -4,14 +4,14 @@ import org.vertx.java.busmods.graph.neo4j.Configuration;
 
 /**
  * Stub for the test configuration.
- * 
+ *
  * @author https://github.com/Jotschi[Johannes Schüth]
  */
 public class TestConfiguration implements Configuration {
 
     @Override
     public String getMode() {
-        return Neo4jGraph.EMBEDDED_MODE;
+        return Fixtures.getConfig().getMode();
     }
 
     @Override
