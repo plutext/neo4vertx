@@ -15,13 +15,10 @@ import org.vertx.java.core.json.JsonObject;
 /**
  * The Fixtures object.
  *
- * @author mailto:b.phifty@gmail.com[Philipp Brüll]
- * @author mailto:rubin.simons@raaftech.com[Rubin Simons]
+ * @author https://github.com/phifty[Philipp Brüll]
+ * @author https://github.com/rubin55[Rubin Simons]
  */
 public class Fixtures {
-
-    public static String NODE_ID_FIELD = "id";
-    public static String RELATIONSHIP_ID_FIELD = "id";
 
     public static Configuration getConfig() {
 
@@ -42,42 +39,6 @@ public class Fixtures {
             e.printStackTrace();
             return new JsonConfiguration(new JsonObject(""));
         }
-    }
-
-    public static Map<String, Object> testNode() {
-        Map<String, Object> result = new HashMap<>();
-        if (NODE_ID_FIELD != null) {
-            result.put(NODE_ID_FIELD, UUID.randomUUID().toString());
-        }
-        result.put("content", "test node");
-        return result;
-    }
-
-    public static Map<String, Object> updatedTestNode() {
-        Map<String, Object> result = new HashMap<>();
-        if (NODE_ID_FIELD != null) {
-            result.put(NODE_ID_FIELD, UUID.randomUUID().toString());
-        }
-        result.put("content", "updated test node");
-        return result;
-    }
-
-    public static Map<String, Object> testRelationship() {
-        Map<String, Object> result = new HashMap<>();
-        if (RELATIONSHIP_ID_FIELD != null) {
-            result.put(RELATIONSHIP_ID_FIELD, UUID.randomUUID().toString());
-        }
-        result.put("content", "test relationship");
-        return result;
-    }
-
-    public static Map<String, Object> updatedTestRelationship() {
-        Map<String, Object> result = new HashMap<>();
-        if (RELATIONSHIP_ID_FIELD != null) {
-            result.put(RELATIONSHIP_ID_FIELD, UUID.randomUUID().toString());
-        }
-        result.put("content", "updated test relationship");
-        return result;
     }
 
     public static JsonObject testJsonCypherQuery() {

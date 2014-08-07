@@ -11,7 +11,8 @@ import org.vertx.java.core.json.JsonObject;
 /**
  * The JsonConfiguration object.
  *
- * @author mailto:b.phifty@gmail.com[Philipp Brüll]
+ * @author https://github.com/phifty[Philipp Brüll]
+ * @author https://github.com/rubin55[Rubin Simons]
  * @author https://github.com/Jotschi[Johannes Schüth]
  */
 public class JsonConfiguration implements Configuration {
@@ -45,16 +46,6 @@ public class JsonConfiguration implements Configuration {
     @Override
     public String getBaseAddress() {
         return object.getString("baseAddress", DEFAULT_BASE_ADDRESS);
-    }
-
-    @Override
-    public String getAlternateNodeIdField() {
-        return object.getString("alternateNodeIdField", null);
-    }
-
-    @Override
-    public String getAlternateRelationshipIdField() {
-        return object.getString("alternateRelationshipIdField", null);
     }
 
     @Override

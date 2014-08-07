@@ -11,12 +11,10 @@ import org.vertx.java.busmods.graph.neo4j.Configuration;
  * Service Factory that is able to create {@link GraphDatabaseService} using the
  * {@link HighlyAvailableGraphDatabaseFactory} and therefore add HA support to
  * the returned service.
- * 
+ *
  * @author https://github.com/Jotschi[Johannes Schüth]
- * 
  */
-public class Neo4jGraphDatabaseHAServiceFactory implements
-GraphDatabaseServiceFactory {
+public class Neo4jGraphDatabaseHAServiceFactory implements GraphDatabaseServiceFactory {
 
     @Override
     public GraphDatabaseService create(String path) {

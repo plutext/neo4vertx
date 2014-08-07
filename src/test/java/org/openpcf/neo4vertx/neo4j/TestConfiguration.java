@@ -5,6 +5,7 @@ import org.vertx.java.busmods.graph.neo4j.Configuration;
 /**
  * Stub for the test configuration.
  *
+ * @author https://github.com/rubin55[Rubin Simons]
  * @author https://github.com/Jotschi[Johannes Schüth]
  */
 public class TestConfiguration implements Configuration {
@@ -27,16 +28,6 @@ public class TestConfiguration implements Configuration {
     @Override
     public String getBaseAddress() {
         return null;
-    }
-
-    @Override
-    public String getAlternateNodeIdField() {
-        return Fixtures.NODE_ID_FIELD;
-    }
-
-    @Override
-    public String getAlternateRelationshipIdField() {
-        return Fixtures.RELATIONSHIP_ID_FIELD;
     }
 
     @Override

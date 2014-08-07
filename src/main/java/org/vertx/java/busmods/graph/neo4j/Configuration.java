@@ -3,7 +3,8 @@ package org.vertx.java.busmods.graph.neo4j;
 /**
  * The Configuration interface.
  *
- * @author mailto:b.phifty@gmail.com[Philipp Brüll]
+ * @author https://github.com/phifty[Philipp Brüll]
+ * @author https://github.com/rubin55[Rubin Simons]
  * @author https://github.com/Jotschi[Johannes Schüth]
  */
 public interface Configuration {
@@ -30,10 +31,6 @@ public interface Configuration {
      * @return base address prefix
      */
     public String getBaseAddress();
-
-    public String getAlternateNodeIdField();
-
-    public String getAlternateRelationshipIdField();
 
     /**
      * Return the ha.initial_hosts setting.

@@ -13,13 +13,4 @@ public class FakeHandler<T> implements Handler<T> {
     public void handle(T value) {
         this.value = value;
     }
-
-    public void reset() {
-        value = null;
-    }
-
-    public T getValue() {
-        return value;
-    }
-
 }

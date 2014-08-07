@@ -8,8 +8,8 @@ import org.vertx.java.busmods.graph.neo4j.Configuration;
 /**
  * The Neo4jGraphDatabaseServiceFactory object.
  *
- * @author mailto:b.phifty@gmail.com[Philipp Brüll]
- * @author mailto:rubin.simons@raaftech.com[Rubin Simons]
+ * @author https://github.com/phifty[Philipp Brüll]
+ * @author https://github.com/rubin55[Rubin Simons]
  */
 public class Neo4jGraphDatabaseServiceFactory implements GraphDatabaseServiceFactory {
 
