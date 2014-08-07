@@ -20,6 +20,11 @@ public class TestConfiguration implements Configuration {
     }
 
     @Override
+    public String getRestUrl() {
+        return Fixtures.getConfig().getRestUrl();
+    }
+
+    @Override
     public String getBaseAddress() {
         return null;
     }

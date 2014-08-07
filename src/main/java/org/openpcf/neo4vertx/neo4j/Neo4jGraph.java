@@ -19,7 +19,6 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 
 /**
  * The Neo4jGraph object.
@@ -35,6 +34,7 @@ public class Neo4jGraph implements Graph {
     public final static String REMOTE_MODE = "remote";
     public final static String EMBEDDED_GUI_MODE = "embedded-with-gui";
 
+    private Configuration conf;
     private GraphDatabaseService graphDatabaseService;
     private Bootstrapper bootStrapper;
     private Nodes nodes;
@@ -45,24 +45,24 @@ public class Neo4jGraph implements Graph {
     /**
      * Create an embedded Neo4j graph instance
      *
-     * @param configuration
+     * @param conf
      *            configuration for the graph
      */
-    public Neo4jGraph(Configuration configuration) {
-        initialize(configuration, null);
+    public Neo4jGraph(Configuration conf) {
+        initialize(conf, null);
     }
 
     /**
      * Create an embedded Neo4j graph instance
      *
-     * @param configuration
+     * @param conf
      *            configuration for the graph
      * @param customServiceFactory
      *            factory that should be used regardless of the factory that would otherwise be chosen by
      *            examining the configuration object.
      */
-    public Neo4jGraph(Configuration configuration, GraphDatabaseServiceFactory customServiceFactory) {
-        initialize(configuration, customServiceFactory);
+    public Neo4jGraph(Configuration conf, GraphDatabaseServiceFactory customServiceFactory) {
+        initialize(conf, customServiceFactory);
     }
 
     /**
@@ -71,6 +71,7 @@ public class Neo4jGraph implements Graph {
      * @param conf neo4j module configuration
      */
     private void initialize(Configuration conf, GraphDatabaseServiceFactory customServiceFactory) {
+        this.conf = conf;
         final String mode = conf.getMode();
 
         GraphDatabaseServiceFactory neo4jServiceFactory = customServiceFactory;
@@ -124,7 +125,7 @@ public class Neo4jGraph implements Graph {
     @Override
     public void query(JsonObject request, Handler<String> handler) throws Exception {
 
-        String url = "http://localhost:7474/db/data/cypher";
+        String url = conf.getRestUrl();
 
         URL obj = new URL(url);
         HttpURLConnection connection = (HttpURLConnection) obj.openConnection();

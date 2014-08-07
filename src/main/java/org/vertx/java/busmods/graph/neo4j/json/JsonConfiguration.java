@@ -18,9 +18,10 @@ public class JsonConfiguration implements Configuration {
 
     private final JsonObject object;
 
-    private final static String DEFAULT_PATH = System.getProperty("user.dir")
-            + File.separator + "db";
+    private final static String DEFAULT_PATH = System.getProperty("user.dir") + File.separator + "db";
+    private final static String DEFAULT_REST_URL = "http://localhost:7474/db/data/cypher";
     private final static String DEFAULT_BASE_ADDRESS = "neo4j-graph";
+
 
     public JsonConfiguration(JsonObject object) {
         this.object = object;
@@ -34,6 +35,11 @@ public class JsonConfiguration implements Configuration {
     @Override
     public String getPath() {
         return object.getString("path", DEFAULT_PATH);
+    }
+
+    @Override
+    public String getRestUrl() {
+        return object.getString("restUrl", DEFAULT_REST_URL);
     }
 
     @Override

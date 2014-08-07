@@ -24,9 +24,10 @@ directory.
 ### Example for embedded neo4j
 
     {
-      "mode": "embedded",      # embedded, embedded-with-gui, embedded-ha
-      "path": "/var/graph",    # the path where to store the database
-      "baseAddress": "graph"   # the vertx base address of the module
+      "mode": "embedded-with-gui",                      # embedded-with-gui, embedded-ha, embedded
+      "path": "/var/graph",                             # the path where to store the database
+      "restUrl": "http://localhost:7474/db/data/cypher" # url to the cypher rest service (not available with embedded mode)
+      "baseAddress": "graph"                            # the vertx base address of the module
     }
 
 ### Example for embedded neo4j in HA cluster mode
@@ -38,6 +39,7 @@ in between multiple vert.x instances.
 {
     "mode": "embedded-ha",
     "path": "/tmp/graph-master",
+    "restUrl": "http://localhost:7474/db/data/cypher"
     "baseAddress": "graph",
     "ha.initial_hosts": "localhost:5001,localhost:5002",
     "ha.server_id": "1",
