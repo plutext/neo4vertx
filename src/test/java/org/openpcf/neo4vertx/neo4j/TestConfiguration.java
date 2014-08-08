@@ -4,14 +4,15 @@ import org.vertx.java.busmods.graph.neo4j.Configuration;
 
 /**
  * Stub for the test configuration.
- * 
+ *
+ * @author https://github.com/rubin55[Rubin Simons]
  * @author https://github.com/Jotschi[Johannes Schüth]
  */
 public class TestConfiguration implements Configuration {
 
     @Override
     public String getMode() {
-        return Neo4jGraph.EMBEDDED_MODE;
+        return Fixtures.getConfig().getMode();
     }
 
     @Override
@@ -20,18 +21,13 @@ public class TestConfiguration implements Configuration {
     }
 
     @Override
+    public String getRestUrl() {
+        return Fixtures.getConfig().getRestUrl();
+    }
+
+    @Override
     public String getBaseAddress() {
         return null;
-    }
-
-    @Override
-    public String getAlternateNodeIdField() {
-        return Fixtures.NODE_ID_FIELD;
-    }
-
-    @Override
-    public String getAlternateRelationshipIdField() {
-        return Fixtures.RELATIONSHIP_ID_FIELD;
     }
 
     @Override

@@ -3,7 +3,7 @@ package org.openpcf.neo4vertx;
 /**
  * The Handler interface.
  *
- * @author mailto:b.phifty@gmail.com[Philipp Brüll]
+ * @author https://github.com/phifty[Philipp Brüll]
  */
 public interface Handler<T> {
 

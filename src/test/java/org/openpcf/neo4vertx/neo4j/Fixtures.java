@@ -4,9 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 import org.vertx.java.busmods.graph.neo4j.Configuration;
 import org.vertx.java.busmods.graph.neo4j.json.JsonConfiguration;
@@ -15,13 +12,21 @@ import org.vertx.java.core.json.JsonObject;
 /**
  * The Fixtures object.
  *
- * @author mailto:b.phifty@gmail.com[Philipp Brüll]
- * @author mailto:rubin.simons@raaftech.com[Rubin Simons]
+ * @author https://github.com/phifty[Philipp Brüll]
+ * @author https://github.com/rubin55[Rubin Simons]
+ * @author https://github.com/fraik[Freek Alleman]
  */
 public class Fixtures {
 
-    public static String NODE_ID_FIELD = "id";
-    public static String RELATIONSHIP_ID_FIELD = "id";
+    public static final String NEO4VERTX_TEST_ENTITY_UUID = "3f2e3e50-1efa-11e4-8c21-0800200c9a66";
+    public static final String NEO4VERTX_TEST_ENTITY_DESC = "Neo4vertx Test Entity. Safe to remove.";
+    public static final String NEO4VERTX_TEST_ENTITY_INITIAL_VALUE = "Initial value";
+    public static final String NEO4VERTX_TEST_ENTITY_UPDATED_VALUE = "Updated value";
+
+    public static final String CREATE_TEST_ENTITY_QUERY = String.format("MERGE (n {uuid: '%s', desc:'%s', value:'%s'}) RETURN n.uuid, n.desc, n.value", NEO4VERTX_TEST_ENTITY_UUID, NEO4VERTX_TEST_ENTITY_DESC, NEO4VERTX_TEST_ENTITY_INITIAL_VALUE);
+    public static final String READ_TEST_ENTITY_QUERY = String.format("MATCH (n {uuid: '%s'}) RETURN n.uuid, n.desc, n.value", NEO4VERTX_TEST_ENTITY_UUID);
+    public static final String UPDATE_TEST_ENTITY_QUERY = String.format("MATCH (n {uuid: '%s'}) SET n.value = '%s' RETURN n.uuid, n.desc, n.value", NEO4VERTX_TEST_ENTITY_UUID, NEO4VERTX_TEST_ENTITY_UPDATED_VALUE);
+    public static final String DELETE_TEST_ENTITY_QUERY = String.format("MATCH (n {uuid: '%s'}) DELETE n", NEO4VERTX_TEST_ENTITY_UUID);
 
     public static Configuration getConfig() {
 
@@ -44,40 +49,19 @@ public class Fixtures {
         }
     }
 
-    public static Map<String, Object> testNode() {
-        Map<String, Object> result = new HashMap<>();
-        if (NODE_ID_FIELD != null) {
-            result.put(NODE_ID_FIELD, UUID.randomUUID().toString());
-        }
-        result.put("content", "test node");
-        return result;
-    }
-
-    public static Map<String, Object> updatedTestNode() {
-        Map<String, Object> result = new HashMap<>();
-        if (NODE_ID_FIELD != null) {
-            result.put(NODE_ID_FIELD, UUID.randomUUID().toString());
-        }
-        result.put("content", "updated test node");
-        return result;
-    }
-
-    public static Map<String, Object> testRelationship() {
-        Map<String, Object> result = new HashMap<>();
-        if (RELATIONSHIP_ID_FIELD != null) {
-            result.put(RELATIONSHIP_ID_FIELD, UUID.randomUUID().toString());
-        }
-        result.put("content", "test relationship");
-        return result;
-    }
-
-    public static Map<String, Object> updatedTestRelationship() {
-        Map<String, Object> result = new HashMap<>();
-        if (RELATIONSHIP_ID_FIELD != null) {
-            result.put(RELATIONSHIP_ID_FIELD, UUID.randomUUID().toString());
-        }
-        result.put("content", "updated test relationship");
-        return result;
+    public static JsonObject testJsonCypherQuery() {
+        return new JsonObject( "{\n" +
+         "  \"query\" : \"CREATE (n:Person { props } ) RETURN n\",\n" +
+         "  \"params\" : {\n" +
+         "    \"props\" : [ {\n" +
+         "      \"name\" : \"Rubin\",\n" +
+         "      \"position\" : \"Developer\"\n" +
+         "    }, {\n" +
+         "      \"name\" : \"Freek\",\n" +
+         "      \"position\" : \"Developer\"\n" +
+         "    } ]\n" +
+         "  }\n" +
+         "}");
     }
 
 }

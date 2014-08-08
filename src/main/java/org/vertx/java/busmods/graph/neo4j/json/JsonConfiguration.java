@@ -11,16 +11,18 @@ import org.vertx.java.core.json.JsonObject;
 /**
  * The JsonConfiguration object.
  *
- * @author mailto:b.phifty@gmail.com[Philipp Brüll]
+ * @author https://github.com/phifty[Philipp Brüll]
+ * @author https://github.com/rubin55[Rubin Simons]
  * @author https://github.com/Jotschi[Johannes Schüth]
  */
 public class JsonConfiguration implements Configuration {
 
     private final JsonObject object;
 
-    private final static String DEFAULT_PATH = System.getProperty("user.dir")
-            + File.separator + "db";
+    private final static String DEFAULT_PATH = System.getProperty("user.dir") + File.separator + "db";
+    private final static String DEFAULT_REST_URL = "http://localhost:7474/db/data/cypher";
     private final static String DEFAULT_BASE_ADDRESS = "neo4j-graph";
+
 
     public JsonConfiguration(JsonObject object) {
         this.object = object;
@@ -28,7 +30,7 @@ public class JsonConfiguration implements Configuration {
 
     @Override
     public String getMode() {
-        return object.getString("mode", Neo4jGraph.EMBEDDED_MODE);
+        return object.getString("mode", Neo4jGraph.DEFAULT_MODE);
     }
 
     @Override
@@ -37,18 +39,13 @@ public class JsonConfiguration implements Configuration {
     }
 
     @Override
+    public String getRestUrl() {
+        return object.getString("restUrl", DEFAULT_REST_URL);
+    }
+
+    @Override
     public String getBaseAddress() {
         return object.getString("baseAddress", DEFAULT_BASE_ADDRESS);
-    }
-
-    @Override
-    public String getAlternateNodeIdField() {
-        return object.getString("alternateNodeIdField", null);
-    }
-
-    @Override
-    public String getAlternateRelationshipIdField() {
-        return object.getString("alternateRelationshipIdField", null);
     }
 
     @Override

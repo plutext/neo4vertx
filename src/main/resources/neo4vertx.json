@@ -1,5 +1,6 @@
 {
-    "mode": "embedded",
+    "mode": "default",
     "path": "/tmp/graph",
+    "restUrl": "http://localhost:7474/db/data/cypher",
     "baseAddress": "neo4j-graph"
 }
