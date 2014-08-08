@@ -24,9 +24,9 @@ import java.net.URL;
  */
 public class Neo4jGraph implements Graph {
 
-    public final static String EMBEDDED_MODE = "embedded";
-    public final static String EMBEDDED_HA_MODE = "embedded-ha";
-    public final static String EMBEDDED_GUI_MODE = "embedded-with-gui";
+    public final static String DEFAULT_MODE = "default";
+    public final static String CLUSTER_MODE = "cluster";
+    public final static String REMOTE_MODE = "remote";
 
     private Bootstrapper bootStrapper;
     private GraphDatabaseService graphDatabaseService;
@@ -53,16 +53,17 @@ public class Neo4jGraph implements Graph {
 
         try {
             switch (mode) {
-                case EMBEDDED_MODE:
-                    graphDatabaseService = new Neo4jGraphDatabaseServiceFactory().create(conf);
-                    break;
-                case EMBEDDED_HA_MODE:
-                    graphDatabaseService = new Neo4jGraphDatabaseHAServiceFactory().create(conf);
-                    break;
-                case EMBEDDED_GUI_MODE:
+                case DEFAULT_MODE:
                     graphDatabaseService = new Neo4jGraphDatabaseServiceFactory().create(conf);
                     bootStrapper = new WrappingNeoServerBootstrapper((GraphDatabaseAPI) graphDatabaseService);
                     bootStrapper.start();
+                    break;
+                case CLUSTER_MODE:
+                    graphDatabaseService = new Neo4jGraphDatabaseHAServiceFactory().create(conf);
+                    bootStrapper = new WrappingNeoServerBootstrapper((GraphDatabaseAPI) graphDatabaseService);
+                    bootStrapper.start();
+                    break;
+                case REMOTE_MODE:
                     break;
                 default:
                     throw new Exception("Invalid mode " + mode + " specified");
@@ -121,7 +122,8 @@ public class Neo4jGraph implements Graph {
             bootStrapper.stop();
         }
 
-        graphDatabaseService.shutdown();
+        if (graphDatabaseService != null) {
+            graphDatabaseService.shutdown();
+        }
     }
-
 }

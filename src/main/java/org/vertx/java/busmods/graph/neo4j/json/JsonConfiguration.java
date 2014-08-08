@@ -30,7 +30,7 @@ public class JsonConfiguration implements Configuration {
 
     @Override
     public String getMode() {
-        return object.getString("mode", Neo4jGraph.EMBEDDED_MODE);
+        return object.getString("mode", Neo4jGraph.DEFAULT_MODE);
     }
 
     @Override
