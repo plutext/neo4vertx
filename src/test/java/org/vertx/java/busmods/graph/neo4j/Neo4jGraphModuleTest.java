@@ -7,6 +7,7 @@ import org.vertx.java.testframework.TestBase;
  *
  * @author https://github.com/phifty[Philipp Brüll]
  * @author https://github.com/rubin55[Rubin Simons]
+ * @author https://github.com/fraik[Freek Alleman]
  */
 public class Neo4jGraphModuleTest extends TestBase {
 
@@ -16,7 +17,8 @@ public class Neo4jGraphModuleTest extends TestBase {
         startApp(Neo4jGraphTestClient.class.getName());
     }
 
-    public void testRunQuery() {
-        startTest(getMethodName());
-    }
+    public void testCreateEntity() { startTest(getMethodName()); }
+    public void testReadEntity() { startTest(getMethodName()); }
+    public void testUpdateEntity() { startTest(getMethodName()); }
+    public void testDeleteEntity() { startTest(getMethodName()); }
 }

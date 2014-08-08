@@ -97,6 +97,15 @@ for more information about the various neo4j ha settings.
     }
 
 
+## Usage
+
+Deploy the Neo4jGraphModule and send a Cypher query request to the baseAddress.cypher.query address. Please refer to  
+the http://docs.neo4j.org/chunked/stable/rest-api-cypher.html[neo4j Cypher queries via REST] documentation the format 
+of the request. Example will follow soon, in the meantime see Neo4jGraphTestClient.java for some usage examples.
+
+
+
+
 ## License
 
 Licensed under the Apache License, Version 2.0 (the "License");

@@ -49,19 +49,7 @@ public class Fixtures {
         }
     }
 
-    public static JsonObject testJsonCypherQuery() {
-        return new JsonObject( "{\n" +
-         "  \"query\" : \"CREATE (n:Person { props } ) RETURN n\",\n" +
-         "  \"params\" : {\n" +
-         "    \"props\" : [ {\n" +
-         "      \"name\" : \"Rubin\",\n" +
-         "      \"position\" : \"Developer\"\n" +
-         "    }, {\n" +
-         "      \"name\" : \"Freek\",\n" +
-         "      \"position\" : \"Developer\"\n" +
-         "    } ]\n" +
-         "  }\n" +
-         "}");
+    public static JsonObject asJsonCypherQuery(String query) {
+        return new JsonObject(String.format("{ \"query\":\"%s\", \"params\": {} }", query));
     }
-
 }
