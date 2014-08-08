@@ -4,9 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 import org.vertx.java.busmods.graph.neo4j.Configuration;
 import org.vertx.java.busmods.graph.neo4j.json.JsonConfiguration;
@@ -17,8 +14,19 @@ import org.vertx.java.core.json.JsonObject;
  *
  * @author https://github.com/phifty[Philipp Brüll]
  * @author https://github.com/rubin55[Rubin Simons]
+ * @author https://github.com/fraik[Freek Alleman]
  */
 public class Fixtures {
+
+    public static final String NEO4VERTX_TEST_ENTITY_UUID = "3f2e3e50-1efa-11e4-8c21-0800200c9a66";
+    public static final String NEO4VERTX_TEST_ENTITY_DESC = "Neo4vertx Test Entity. Safe to remove.";
+    public static final String NEO4VERTX_TEST_ENTITY_INITIAL_VALUE = "Initial value";
+    public static final String NEO4VERTX_TEST_ENTITY_UPDATED_VALUE = "Updated value";
+
+    public static final String CREATE_TEST_ENTITY_QUERY = String.format("MERGE (n {uuid: '%s', desc:'%s', value:'%s'}) RETURN n.uuid, n.desc, n.value", NEO4VERTX_TEST_ENTITY_UUID, NEO4VERTX_TEST_ENTITY_DESC, NEO4VERTX_TEST_ENTITY_INITIAL_VALUE);
+    public static final String READ_TEST_ENTITY_QUERY = String.format("MATCH (n {uuid: '%s'}) RETURN n.uuid, n.desc, n.value", NEO4VERTX_TEST_ENTITY_UUID);
+    public static final String UPDATE_TEST_ENTITY_QUERY = String.format("MATCH (n {uuid: '%s'}) SET n.value = '%s' RETURN n.uuid, n.desc, n.value", NEO4VERTX_TEST_ENTITY_UUID, NEO4VERTX_TEST_ENTITY_UPDATED_VALUE);
+    public static final String DELETE_TEST_ENTITY_QUERY = String.format("MATCH (n {uuid: '%s'}) DELETE n", NEO4VERTX_TEST_ENTITY_UUID);
 
     public static Configuration getConfig() {
 

@@ -21,6 +21,7 @@ import java.net.URL;
  * @author https://github.com/phifty[Philipp Brüll]
  * @author https://github.com/rubin55[Rubin Simons]
  * @author https://github.com/jotschi[Johannes Schüth]
+ * @author https://github.com/fraik[Freek Alleman]
  */
 public class Neo4jGraph implements Graph {
 
@@ -99,9 +100,10 @@ public class Neo4jGraph implements Graph {
 
         int responseCode = connection.getResponseCode();
 
-        System.out.println("\nSending 'POST' request to URL : " + restUrl);
-        System.out.println("Post parameters : " + request.toString());
-        System.out.println("Response Code : " + responseCode);
+        // TODO fix logging
+        //System.out.println("\nSending 'POST' request to URL : " + restUrl);
+        //System.out.println("Post parameters : " + request.toString());
+        //System.out.println("Response Code : " + responseCode);
 
         BufferedReader in = new BufferedReader(
             new InputStreamReader(connection.getInputStream()));

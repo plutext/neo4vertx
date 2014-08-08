@@ -3,7 +3,9 @@ package org.openpcf.neo4vertx;
 /**
  * The FakeHandler object.
  *
- * @author mailto:b.phifty@gmail.com[Philipp Brüll]
+ * @author https://github.com/phifty[Philipp Brüll]
+ * @author https://github.com/fraik[Freek Alleman]
+ *
  */
 public class FakeHandler<T> implements Handler<T> {
 
@@ -12,5 +14,9 @@ public class FakeHandler<T> implements Handler<T> {
     @Override
     public void handle(T value) {
         this.value = value;
+    }
+
+    public T getValue() {
+        return this.value;
     }
 }
