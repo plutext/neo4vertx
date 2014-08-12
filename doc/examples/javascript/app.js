@@ -11,15 +11,15 @@ var webServerConfig = {
     ]
 };
 
-// deploy mod-web-server
-container.deployModule("io.vertx~mod-web-server~2.0.0-final", webServerConfig, 1, deploymentCompleteHandler);
-
 // neo4vertx configuration
 var neo4jConfig = {
     mode: "default",
     path: "/tmp/db",
     baseAddress: "neo4j-graph"
 };
+
+// deploy mod-web-server
+container.deployModule("io.vertx~mod-web-server~2.0.0-final", webServerConfig, 1, deploymentCompleteHandler);
 
 // deploy neo4vertx
 container.deployModule("org.openpcf~neo4vertx~1.3.1", neo4jConfig, 1, deploymentCompleteHandler);
