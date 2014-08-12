@@ -99,11 +99,20 @@ for more information about the various neo4j ha settings.
 
 ## Usage
 
-Deploy the Neo4jGraphModule and send a Cypher query request to the baseAddress.cypher.query address. Please refer to  
-the http://docs.neo4j.org/chunked/stable/rest-api-cypher.html[neo4j Cypher queries via REST] documentation the format 
-of the request. Example will follow soon, in the meantime see Neo4jGraphTestClient.java for some usage examples.
+Deploy the neo4vertx and send a Cypher query request (to baseAddress.cypher.query). Please refer to the examples directory for more information.
 
 
+### Example "basic usage" of neo4vertx:
+
+    function doQuery(querystring, callback) {
+        var queryJsonObject = { "query": querystring };
+
+        eventBus.send(
+            'neo4j-graph.cypher.query',
+            queryJsonObject,
+            callback
+        );
+    }
 
 
 ## License
