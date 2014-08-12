@@ -1,6 +1,16 @@
 
 # Example neo4vertx usage
-This example shows the basic usage of neo4vertx. 
+This example shows the basic usage of neo4vertx. This example is only meant
+to show conceptually how neo4vertx works. We send a Cypher query directly 
+from the client.js, utilizing the Vert.x eventbus Javascript bridge. In real
+life you should probably not do this, as exposing the Cypher REST api in this
+way will effectively allow anyone with access to your site to fire ANY kind
+of Cypher REST query at your Neo4j instance.
+
+Ideally, one would create backend verticles that handle all sorts of abstract
+things, utilizing neo4vertx; the client.js would then talk to these backend
+verticles instead!
+
 Follow the steps below to run the example.
 
 
@@ -16,6 +26,7 @@ the modules are deployed, let's run the example:
 Open [http://localhost:8080/](http://localhost:8080/) in a webbrowser to run 
 the example (you can see the output of client.js in the webconsole). It 
 should look something like this:
+
 ```
 "Eventbus connected"
 "displayResult() received the following result: "
