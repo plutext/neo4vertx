@@ -99,19 +99,22 @@ for more information about the various neo4j ha settings.
 
 ## Usage
 
-Deploy neo4vertx within your vert.x application and send a Cypher query request.
-Please refer to the [doc/examples/javascript](https://github.com/raaftech/neo4vertx/tree/master/doc/examples/javascript) directory for a complete working example.
+Deploy neo4vertx within your vert.x application and send a Cypher JSON query request.
+Please refer to the [doc/examples/javascript](https://github.com/raaftech/neo4vertx/tree/master/doc/examples/javascript) directory for a complete working example. To see how to format your Cypher queries, check the [Cypher REST API](http://docs.neo4j.org/chunked/stable/rest-api-cypher.html).
 
 
 ### Example "basic usage" of neo4vertx:
 
-    function doQuery(querystring, callback) {
-        var queryJsonObject = { "query": querystring };
+    function doQuery(someCallback) {
 
+        // A valid Cypher query string wrapped in JSON.
+        var queryJsonObject = { "query": "MATCH (n) RETURN n" };
+
+        // Send eventbus message, have someCallback handle it.
         eventBus.send(
             'neo4j-graph.cypher.query',
             queryJsonObject,
-            callback
+            someCallback
         );
     }
 
