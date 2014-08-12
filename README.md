@@ -100,7 +100,7 @@ for more information about the various neo4j ha settings.
 ## Usage
 
 Deploy neo4vertx within your vert.x application and send a Cypher query request.
-Please refer to the [doc/examples/javascript](/tree/master/doc/examples/javascript) directory for a complete working example.
+Please refer to the [doc/examples/javascript](tree/master/doc/examples/javascript) directory for a complete working example.
 
 
 ### Example "basic usage" of neo4vertx:
