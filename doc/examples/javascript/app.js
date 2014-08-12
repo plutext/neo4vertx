@@ -17,12 +17,12 @@ container.deployModule("io.vertx~mod-web-server~2.0.0-final", webServerConfig, 1
 // neo4vertx configuration
 var neo4jConfig = {
     mode: "default",
-    path: "/tmp/banaan",
+    path: "/tmp/db",
     baseAddress: "neo4j-graph"
 };
 
 // deploy neo4vertx
-container.deployModule("org.openpcf~neo4vertx~1.3.1", neo4jConfig, 1, deploymentCompleteHandler);
+container.deployModule("org.openpcf~neo4vertx~1.3.0", neo4jConfig, 1, deploymentCompleteHandler);
 
 // display deployment status
 function deploymentCompleteHandler(error, deploymentID){

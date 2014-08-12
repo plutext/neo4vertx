@@ -99,7 +99,8 @@ for more information about the various neo4j ha settings.
 
 ## Usage
 
-Deploy the neo4vertx and send a Cypher query request (to baseAddress.cypher.query). Please refer to the doc/examples directory for more information.
+Deploy neo4vertx within your vert.x application and send a Cypher query request.
+Please refer to the doc/examples directory for a complete working example.
 
 
 ### Example "basic usage" of neo4vertx:
