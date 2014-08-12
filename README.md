@@ -84,7 +84,7 @@ in between multiple vert.x instances.
         "ha.cluster_server": "localhost:5001"
     }
 
-Please refer to the http://docs.neo4j.org/chunked/stable/ha-setup-tutorial.html[neo4j HA documentation]
+Please refer to the [neo4j HA documentation](http://docs.neo4j.org/chunked/stable/ha-setup-tutorial.html)
 for more information about the various neo4j ha settings.
 
 
@@ -100,7 +100,7 @@ for more information about the various neo4j ha settings.
 ## Usage
 
 Deploy neo4vertx within your vert.x application and send a Cypher query request.
-Please refer to the doc/examples directory for a complete working example.
+Please refer to the [doc/examples/javascript](/tree/master/doc/examples/javascript) directory for a complete working example.
 
 
 ### Example "basic usage" of neo4vertx:
