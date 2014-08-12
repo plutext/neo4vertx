@@ -1,14 +1,18 @@
 # Example neo4vertx usage
-This example shows the basic usage of neo4vertx.
+This example shows the basic usage of neo4vertx. Follow the steps below to run the example.
 
-### Running the example
-1) Start the application
+
+### Start the application
 > vertx run app.js
 
-2) Open http://localhost:8080/ in a webbrowser to run the example (you can see the output of client.js in the webconsole). It should look something like this:
+
+### Run the example
+Open http://localhost:8080/ in a webbrowser to run the example (you can see the output of client.js in the webconsole). It should look something like this:
 ```
 "Eventbus connected"
 "displayResult() received the following result: "
 Object { columns: Array[1], data: Array[0] }
 ```
-3) Open http://localhost:7474/ to see the neo4j browser.
+
+### Open the neo4j browser
+Open http://localhost:7474/ to see the neo4j browser.
