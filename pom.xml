@@ -12,7 +12,7 @@
     <groupId>org.openpcf</groupId>
     <artifactId>neo4vertx</artifactId>
     <packaging>jar</packaging>
-    <version>1.3.1</version>
+    <version>1.3.2</version>
     <name>neo4vertx</name>
 
     <description>
@@ -20,7 +20,7 @@
         the latest version of Vert.x and Neo4J (both 2.1 at the time of writing).
     </description>
 
-    <url>https://www.openpcf.org/projects/externals</url>
+    <url>https://github.com/raaftech/neo4vertx</url>
 
     <licenses>
         <license>
@@ -70,17 +70,21 @@
             <id>jotschi</id>
             <name>Johannes Schüth</name>
         </developer>
+        <developer>
+            <id>phifty</id>
+            <name>Philipp Brüll</name>
+        </developer>
     </developers>
 
     <properties>
         <!-- Generic settings -->
-        <neo4j.version>2.1.2</neo4j.version>
+        <neo4j.version>2.1.3</neo4j.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <vertx.pullInDeps>false</vertx.pullInDeps>
         <vertx.createFatJar>false</vertx.createFatJar>
         <module.name>${project.groupId}~${project.artifactId}~${project.version}</module.name>
         <mods.directory>target/mods</mods.directory>
-        <vertx.version>2.1</vertx.version>
+        <vertx.version>2.1.2</vertx.version>
         <vertx.testtools.version>2.0.3-final</vertx.testtools.version>
         <junit.version>4.11</junit.version>
         <gpg.keyname>C6E91526</gpg.keyname>
