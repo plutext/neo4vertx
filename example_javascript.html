@@ -8,7 +8,7 @@
 
 	<head>
 		<meta charset="UTF-8" />
-		<title>neo4vertx - neo4vertx JavaScript Example ===========================</title>
+		<title>neo4vertx - neo4vertx JavaScript Example</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content="" />
 		<meta http-equiv="content-language" content="en" />
@@ -101,67 +101,60 @@
 	<div class="row">
 		<div class="span8">
 			<div class="body-content">
+<div class="page-header">
+ <h1 id="neo4vertx_javascript_example">neo4vertx JavaScript Example</h1>
+</div> 
+<p>This example shows the basic usage of neo4vertx. This example is only meant to show conceptually how neo4vertx works. We send a Cypher query directly from the client.js, utilizing the Vert.x eventbus Javascript bridge. In real life you should probably not do this, as exposing the Cypher REST api in this way will effectively allow anyone with access to your site to fire ANY kind of Cypher REST query at your Neo4j instance.</p> 
+<p>Ideally, one would create backend verticles that handle all sorts of abstract things, utilizing neo4vertx; the client.js would then talk to these backend verticles instead!</p> 
+<p>Follow the steps below to run the example.</p> 
 <div class="section"> 
- <div class="page-header">
-  <h2 id="neo4vertx_JavaScript_Example_">neo4vertx JavaScript Example ===========================</h2>
+ <div class="section"> 
+  <h3 id="Start_the_application">Start the application</h3> 
+  <blockquote> 
+   <p>vertx run app.js</p> 
+  </blockquote> 
+  <p>If this is the first time you run the example, you’ll see vertx downloading and deploying 2 modules (mod-web-server and ofcourse neo4vertx). Now that the modules are deployed, let’s run the example:</p> 
+ </div> 
+ <div class="section"> 
+  <h3 id="Run_the_example">Run the example</h3> 
+  <p>Open <a class="externalLink" href="http://localhost:8080/">http://localhost:8080/</a> in a webbrowser to run the example (you can see the output of client.js in the webconsole). It should look something like this:</p> 
+  <div class="source"> 
+   <pre>&quot;Eventbus connected&quot;
+&quot;displayResult() received the following result: &quot;
+Object { columns: Array[1], data: Array[0] }
+</pre> 
+  </div> 
+ </div> 
+ <div class="section"> 
+  <h3 id="Open_the_neo4j_browser">Open the neo4j browser</h3> 
+  <p>Open <a class="externalLink" href="http://localhost:7474/">http://localhost:7474/</a> to see the neo4j browser.</p> 
+  <hr /> 
+  <h1 id="some_more_details">Some more details</h1> 
+  <p>Now that we’ve succesfully run the example, let’s take a closer look at the code. The application basically consists of 3 files:</p> 
+  <ul> 
+   <li>app.js (server-side code)</li> 
+   <li>web/client.js (client-side code)</li> 
+   <li>web/index.html (the delivery method for the client-side code)</li> 
+  </ul> 
+  <p>Let’s take a look at the server-side code!</p> 
  </div> 
 </div> 
 <div class="section"> 
- <h2 id="This_example_shows_the_basic_usage_of_neo4vertx_This_example_is_only_meant_to_show_conceptually_how_neo4vertx_works_We_send_a_Cypher_query_directly_from_the_clientjs_utilizing_the_Vertx_eventbus_Javascript_bridge_In_real_life_you_should_probably_not_do_this_as_exposing_the_Cypher_REST_api_in_this_way_will_effectively_allow_anyone_with_access_to_your_site_to_fire_ANY_kind_of_Cypher_REST_query_at_your_Neo4j_instance">This example shows the basic usage of neo4vertx. This example is only meant to show conceptually how neo4vertx works. We send a Cypher query directly from the client.js, utilizing the Vert.x eventbus Javascript bridge. In real life you should probably not do this, as exposing the Cypher REST api in this way will effectively allow anyone with access to your site to fire ANY kind of Cypher REST query at your Neo4j instance.</h2> 
-</div> 
-<div class="section"> 
- <h2 id="Ideally_one_would_create_backend_verticles_that_handle_all_sorts_of_abstract_things_utilizing_neo4vertx_the_clientjs_would_then_talk_to_these_backend_verticles_instead">Ideally, one would create backend verticles that handle all sorts of abstract things, utilizing neo4vertx; the client.js would then talk to these backend verticles instead!</h2> 
-</div> 
-<div class="section"> 
- <h2 id="Follow_the_steps_below_to_run_the_example">Follow the steps below to run the example.</h2> 
-</div> 
-<div class="section"> 
- <h2 id="a_vertx_run_appjs">&gt; vertx run app.js</h2> 
-</div> 
-<div class="section"> 
- <h2 id="If_this_is_the_first_time_you_run_the_example_youll_see_vertx_downloading_and_deploying_2_modules_mod-web-server_and_ofcourse_neo4vertx_Now_that_the_modules_are_deployed_lets_run_the_example">If this is the first time you run the example, you'll see vertx downloading and deploying 2 modules (mod-web-server and ofcourse neo4vertx). Now that the modules are deployed, let's run the example:</h2> 
-</div> 
-<div class="section"> 
- <h2 id="Open_httplocalhost8080httplocalhost8080_in_a_webbrowser_to_run_the_example_you_can_see_the_output_of_clientjs_in_the_webconsole_It_should_look_something_like_this">Open [http://localhost:8080/](http://localhost:8080/) in a webbrowser to run the example (you can see the output of client.js in the webconsole). It should look something like this:</h2> 
-</div> 
-<div class="section"> 
- <h2 id="columns_Array1_data_Array0">``` &quot;Eventbus connected&quot; &quot;displayResult() received the following result: &quot; Object ```<a name="a_Eventbus_connected_displayResult_received_the_following_result:__Object__columns:_Array1_data:_Array0__"></a></h2> 
-</div> 
-<div class="section"> 
- <h2 id="Open_httplocalhost7474httplocalhost7474_to_see_the_neo4j_browser">Open [http://localhost:7474/](http://localhost:7474/) to see the neo4j browser.</h2> 
- <div> 
-  <pre>
-
-# Some more details
-Now that we've succesfully run the example, let's take a closer look at the 
-code. The application basically consists of 3 files:
-
- - app.js (server-side code)
- - web/client.js (client-side code)
- - web/index.html (the delivery method for the client-side code)
-
-Let's take a look at the server-side code!
-
-
-
-
-First off, we include container and console.
-
-```
-var container = require(&quot;vertx/container&quot;),
+ <h2 id="Server-side_code_appjs">Server-side code (app.js)</h2> 
+ <div class="section"> 
+  <h3 id="Requires">Requires</h3> 
+  <p>First off, we include container and console.</p> 
+  <div class="source"> 
+   <pre>var container = require(&quot;vertx/container&quot;),
     console = require(&quot;vertx/console&quot;);
-```
-
-
-Then we'll define the configuration for the two modules which we'll deploy; 
-_mod-web-server_ and _neo4vertx_. The configuration parameters all pretty 
-much speak for themselves, for complete information see 
-[mod-web-server ](https://github.com/vert-x/mod-web-server#configuration) and 
-[neo4vertx](https://github.com/raaftech/neo4vertx#configuration) configuration 
-documentation.
-
-```
-// webserver configuration
+</pre> 
+  </div> 
+ </div> 
+ <div class="section"> 
+  <h3 id="Configure_the_modules">Configure the modules</h3> 
+  <p>Then we’ll define the configuration for the two modules which we’ll deploy; <i>mod-web-server</i> and <i>neo4vertx</i>. The configuration parameters all pretty much speak for themselves, for complete information see <a class="externalLink" href="https://github.com/vert-x/mod-web-server#configuration">mod-web-server </a> and <a class="externalLink" href="https://github.com/raaftech/neo4vertx#configuration">neo4vertx</a> configuration documentation.</p> 
+  <div class="source"> 
+   <pre>// webserver configuration
 var webServerConfig = {
     port: 8080,
     host: &quot;0.0.0.0&quot;,
@@ -176,25 +169,26 @@ var neo4jConfig = {
     path: &quot;/tmp/db&quot;,
     baseAddress: &quot;neo4j-graph&quot;
 };
-```
-
-On the server-side we deploy a webserver-module and the neo4vertx module:
-
-```
-// deploy mod-web-server
+</pre> 
+  </div> 
+ </div> 
+ <div class="section"> 
+  <h3 id="Deploy_the_modules">Deploy the modules</h3> 
+  <p>On the server-side we deploy a webserver-module and the neo4vertx module:</p> 
+  <div class="source"> 
+   <pre>// deploy mod-web-server
 container.deployModule(&quot;io.vertx~mod-web-server~2.0.0-final&quot;, webServerConfig, 1, deploymentCompleteHandler);
 
 // deploy neo4vertx
 container.deployModule(&quot;org.openpcf~neo4vertx~1.3.2&quot;, neo4jConfig, 1, deploymentCompleteHandler);
-```
-
-
-Each deployment calls _deploymentCompleteHandler(error, deploymentID)_ when 
-it's done deploying this notifies the user of the deploymentID when the 
-deployment succeeded or the error if something went wrong.
-
-```
-// display deployment status
+</pre> 
+  </div> 
+ </div> 
+ <div class="section"> 
+  <h3 id="Deployment_results">Deployment results</h3> 
+  <p>Each deployment calls <i>deploymentCompleteHandler(error, deploymentID)</i> when it’s done deploying this notifies the user of the deploymentID when the deployment succeeded or the error if something went wrong.</p> 
+  <div class="source"> 
+   <pre>// display deployment status
 function deploymentCompleteHandler(error, deploymentID){
     if (error) {
         console.log(&quot;Something went wrong with deployment: &quot;);
@@ -203,26 +197,27 @@ function deploymentCompleteHandler(error, deploymentID){
         console.log(&quot;Deployment Completed succesfully, deployment ID: &quot; + deploymentID);
     }
 }
-```
-
-
-
-
-
-On the client-side we create a new EventBus:
-
-```
-var eventBus = new vertx.EventBus(window.location.protocol + '//' +
+</pre> 
+  </div> 
+ </div> 
+</div> 
+<div class="section"> 
+ <h2 id="Client-side_code_clientjs">Client-side code (client.js)</h2> 
+ <div class="section"> 
+  <h3 id="Connect_to_the_EventBus">Connect to the EventBus</h3> 
+  <p>On the client-side we create a new EventBus:</p> 
+  <div class="source"> 
+   <pre>var eventBus = new vertx.EventBus(window.location.protocol + '//' +
                             window.location.hostname + ':' +
                             window.location.port + '/eventbus');
-```
-
-
-We define a function _doQuery(querystring, callback)_ which sends a querystring 
-on the eventbus to be executed and calls the _callback_ with the results.
-
-```
-// Execute a Cypher query and call the callback with the results
+</pre> 
+  </div> 
+ </div> 
+ <div class="section"> 
+  <h3 id="Query_function">Query function</h3> 
+  <p>We define a function <i>doQuery(querystring, callback)</i> which sends a querystring on the eventbus to be executed and calls the <i>callback</i> with the results.</p> 
+  <div class="source"> 
+   <pre>// Execute a Cypher query and call the callback with the results
 function doQuery(querystring, callback) {
 
     // Json object containing our very simple querystring
@@ -235,27 +230,27 @@ function doQuery(querystring, callback) {
         callback
     );
 }
-```
-
-
-The callback _displayResults(results)_ notifies the user on the console 
-what the results were.
-
-```
-function displayResult(result) { 
+</pre> 
+  </div> 
+ </div> 
+ <div class="section"> 
+  <h3 id="Callback_function">Callback function</h3> 
+  <p>The callback <i>displayResults(results)</i> notifies the user on the console what the results were.</p> 
+  <div class="source"> 
+   <pre>function displayResult(result) { 
     
     // Display query result(s)
     console.log(&quot;displayResult() received the following result: &quot;);
     console.log(result);
 }
-```
-
-
-As soon as we're connected to the eventbus (_eventBus.onopen_), we notify the 
-user of this through the console, execute a Cypher query (using _doQuery_ defined earlier) and then display the results using the passed callback (_displayResults_).
-
-```
-// Fire when connected to the eventbus
+</pre> 
+  </div> 
+ </div> 
+ <div class="section"> 
+  <h3 id="Execute_a_query">Execute a query</h3> 
+  <p>As soon as we’re connected to the eventbus (<i>eventBus.onopen</i>), we notify the user of this through the console, execute a Cypher query (using <i>doQuery</i> defined earlier) and then display the results using the passed callback (<i>displayResults</i>).</p> 
+  <div class="source"> 
+   <pre>// Fire when connected to the eventbus
 eventBus.onopen = function eventbusConnected() {
 
   // Our very simple query string
@@ -267,7 +262,8 @@ eventBus.onopen = function eventbusConnected() {
   // Execute a Cypher query and use callbackFunction() to display the results
   doQuery(simpleQuerystring, displayResult);
 }
-```</pre> 
+</pre> 
+  </div> 
  </div> 
 </div>
 			</div>
@@ -277,15 +273,36 @@ eventBus.onopen = function eventbusConnected() {
 				<div class="well">
 					<ul class="nav nav-list">
 						<li class="nav-header">Table of Contents</li>
-		<li><a href="#neo4vertx_JavaScript_Example_" title="neo4vertx JavaScript Example ===========================">neo4vertx JavaScript Example ===========================</a>
-		<li><a href="#This_example_shows_the_basic_usage_of_neo4vertx_This_example_is_only_meant_to_show_conceptually_how_neo4vertx_works_We_send_a_Cypher_query_directly_from_the_clientjs_utilizing_the_Vertx_eventbus_Javascript_bridge_In_real_life_you_should_probably_not_do_this_as_exposing_the_Cypher_REST_api_in_this_way_will_effectively_allow_anyone_with_access_to_your_site_to_fire_ANY_kind_of_Cypher_REST_query_at_your_Neo4j_instance" title="This example shows the basic usage of neo4vertx. This example is only meant to show conceptually how neo4vertx works. We send a Cypher query directly from the client.js, utilizing the Vert.x eventbus Javascript bridge. In real life you should probably not do this, as exposing the Cypher REST api in this way will effectively allow anyone with access to your site to fire ANY kind of Cypher REST query at your Neo4j instance.">This example shows the basic usage of neo4vertx. This example is only meant to show conceptually how neo4vertx works. We send a Cypher query directly from the client.js, utilizing the Vert.x eventbus Javascript bridge. In real life you should probably not do this, as exposing the Cypher REST api in this way will effectively allow anyone with access to your site to fire ANY kind of Cypher REST query at your Neo4j instance.</a>
-		<li><a href="#Ideally_one_would_create_backend_verticles_that_handle_all_sorts_of_abstract_things_utilizing_neo4vertx_the_clientjs_would_then_talk_to_these_backend_verticles_instead" title="Ideally, one would create backend verticles that handle all sorts of abstract things, utilizing neo4vertx; the client.js would then talk to these backend verticles instead!">Ideally, one would create backend verticles that handle all sorts of abstract things, utilizing neo4vertx; the client.js would then talk to these backend verticles instead!</a>
-		<li><a href="#Follow_the_steps_below_to_run_the_example" title="Follow the steps below to run the example.">Follow the steps below to run the example.</a>
-		<li><a href="#a_vertx_run_appjs" title="> vertx run app.js">> vertx run app.js</a>
-		<li><a href="#If_this_is_the_first_time_you_run_the_example_youll_see_vertx_downloading_and_deploying_2_modules_mod-web-server_and_ofcourse_neo4vertx_Now_that_the_modules_are_deployed_lets_run_the_example" title="If this is the first time you run the example, you'll see vertx downloading and deploying 2 modules (mod-web-server and ofcourse neo4vertx). Now that the modules are deployed, let's run the example:">If this is the first time you run the example, you'll see vertx downloading and deploying 2 modules (mod-web-server and ofcourse neo4vertx). Now that the modules are deployed, let's run the example:</a>
-		<li><a href="#Open_httplocalhost8080httplocalhost8080_in_a_webbrowser_to_run_the_example_you_can_see_the_output_of_clientjs_in_the_webconsole_It_should_look_something_like_this" title="Open [http://localhost:8080/](http://localhost:8080/) in a webbrowser to run the example (you can see the output of client.js in the webconsole). It should look something like this:">Open [http://localhost:8080/](http://localhost:8080/) in a webbrowser to run the example (you can see the output of client.js in the webconsole). It should look something like this:</a>
-		<li><a href="#columns_Array1_data_Array0" title="``` "Eventbus connected" "displayResult() received the following result: " Object ```">``` "Eventbus connected" "displayResult() received the following result: " Object ```</a>
-		<li><a href="#Open_httplocalhost7474httplocalhost7474_to_see_the_neo4j_browser" title="Open [http://localhost:7474/](http://localhost:7474/) to see the neo4j browser.">Open [http://localhost:7474/](http://localhost:7474/) to see the neo4j browser.</a>
+		<li class="dropdown"><a href="#neo4vertx_javascript_example" title="neo4vertx JavaScript Example">neo4vertx JavaScript Example <b class="caret"></b></a>
+			<ul class="nav nav-list">
+		<li><a href="#Start_the_application" title="Start the application">Start the application</a>
+		<li><a href="#Run_the_example" title="Run the example">Run the example</a>
+		<li><a href="#Open_the_neo4j_browser" title="Open the neo4j browser">Open the neo4j browser</a>
+				<li class="divider"></li>
+			</ul>
+		</li>
+		<li class="dropdown"><a href="#some_more_details" title="Some more details">Some more details <b class="caret"></b></a>
+			<ul class="nav nav-list">
+		<li class="dropdown"><a href="#Server-side_code_appjs" title="Server-side code (app.js)">Server-side code (app.js) <b class="caret"></b></a>
+			<ul class="nav nav-list">
+		<li><a href="#Requires" title="Requires">Requires</a>
+		<li><a href="#Configure_the_modules" title="Configure the modules">Configure the modules</a>
+		<li><a href="#Deploy_the_modules" title="Deploy the modules">Deploy the modules</a>
+		<li><a href="#Deployment_results" title="Deployment results">Deployment results</a>
+				<li class="divider"></li>
+			</ul>
+		</li>
+		<li class="dropdown"><a href="#Client-side_code_clientjs" title="Client-side code (client.js)">Client-side code (client.js) <b class="caret"></b></a>
+			<ul class="nav nav-list">
+		<li><a href="#Connect_to_the_EventBus" title="Connect to the EventBus">Connect to the EventBus</a>
+		<li><a href="#Query_function" title="Query function">Query function</a>
+		<li><a href="#Callback_function" title="Callback function">Callback function</a>
+		<li><a href="#Execute_a_query" title="Execute a query">Execute a query</a>
+				<li class="divider"></li>
+			</ul>
+		</li>
+			</ul>
+		</li>
 					</ul>
 				</div>
 			</div>
