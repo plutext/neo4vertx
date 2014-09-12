@@ -1,6 +1,6 @@
 {
     "main": "org.vertx.java.busmods.graph.neo4j.Neo4jGraphModule",
-    "auto-redeploy": false,
+    "auto-redeploy": true,
 
     "description": "Vert.x module to read and write a Neo4J graph database.",
     "keywords": ["neo4j", "graph", "database", "persistence"],
