@@ -1,4 +1,4 @@
+io.vertx.ext.graph.neo4j
+io.vertx.ext.graph.neo4j.json
 org.openpcf.neo4vertx
 org.openpcf.neo4vertx.neo4j
-org.vertx.java.busmods.graph.neo4j
-org.vertx.java.busmods.graph.neo4j.json
