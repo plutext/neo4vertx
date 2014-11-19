@@ -107,7 +107,54 @@
  <h2 id="Settings">Settings</h2> 
  <div class="section"> 
   <h3 id="mode">mode</h3> 
-  <p>There are three modes that neo4vertx can run in: default, cluster and remote mode. In default mode, neo4vertx starts an embedded Neo4j graph and enables the REST and web interface on it. In cluster mode, neo4vertx starts a HA cluster enabled embedded Neo4j instance, handy for sharing graph data with multiple Vert.x instances. In remote mode, no embedded Neo4j instance is started; neo4vertx simply uses the restUrl to talk to a remote Neo4j instance.</p> 
+  <p>There are different modes that neo4vertx can run in: default, cluster, remote and gui mode. </p> 
+  <div class="section"> 
+   <h4 id="default">default</h4> 
+   <p>In default mode, neo4vertx starts an embedded Neo4j graph.</p> 
+   <div class="source"> 
+    <pre>{
+  &quot;mode&quot;: &quot;default&quot;,
+  &quot;path&quot;: &quot;/var/graph&quot;,
+  &quot;baseAddress&quot;: &quot;graph&quot;
+}
+</pre> 
+   </div> 
+  </div> 
+  <div class="section"> 
+   <h4 id="remote">remote</h4> 
+   <p>In remote mode, no embedded Neo4j instance is started; neo4vertx simply uses the restUrl parameter to talk to a remote Neo4j instance.</p> 
+   <div class="source"> 
+    <pre>{
+  &quot;mode&quot;: &quot;remote&quot;,
+  &quot;restUrl&quot;: &quot;http://localhost:7474/db/data/cypher&quot;,
+  &quot;baseAddress&quot;: &quot;graph&quot;
+}
+</pre> 
+   </div> 
+  </div> 
+  <div class="section"> 
+   <h4 id="gui">gui</h4> 
+   <p>The gui is similar to default mode but additionally a REST and web interface is startup. The interface can be accessed on port 7474.</p> 
+  </div> 
+  <div class="section"> 
+   <h4 id="cluster">cluster</h4> 
+   <p>In cluster mode, neo4vertx starts a HA cluster enabled embedded Neo4j instance, handy for sharing graph data with multiple Vert.x instances. </p> 
+   <div class="source"> 
+    <pre>{
+    &quot;mode&quot;: &quot;cluster&quot;,
+    &quot;path&quot;: &quot;/tmp/graph-master&quot;,
+    &quot;restUrl&quot;: &quot;http://localhost:7474/db/data/cypher&quot;,
+    &quot;baseAddress&quot;: &quot;graph&quot;,
+    &quot;ha.initial_hosts&quot;: &quot;localhost:5001,localhost:5002&quot;,
+    &quot;ha.server_id&quot;: &quot;1&quot;,
+    &quot;ha.server&quot;: &quot;localhost:6001&quot;,
+    &quot;ha.slave_only&quot;: &quot;false&quot;,
+    &quot;ha.cluster_server&quot;: &quot;localhost:5001&quot;
+}
+</pre> 
+   </div> 
+   <p>Please refer to the <a class="externalLink" href="http://docs.neo4j.org/chunked/stable/ha-setup-tutorial.html">neo4j HA documentation</a> for more information about the various neo4j ha settings or checkout one of the cluster java examples.</p> 
+  </div> 
  </div> 
  <div class="section"> 
   <h3 id="path">path</h3> 
@@ -124,52 +171,6 @@
  <div class="section"> 
   <h3 id="baseAddress">baseAddress</h3> 
   <p>This setting controls the baseAddress of the module for Vert.x’es event bus purposes. It controls what name you use to talk to neo4vertx.</p> 
-  <hr /> 
- </div> 
-</div> 
-<div class="section"> 
- <h2 id="Examples_neo4vertxjson_files">Examples neo4vertx.json files</h2> 
- <div class="section"> 
-  <h3 id="default_mode">default mode</h3> 
-  <div class="source"> 
-   <pre>{
-  &quot;mode&quot;: &quot;default&quot;,
-  &quot;path&quot;: &quot;/var/graph&quot;,
-  &quot;restUrl&quot;: &quot;http://localhost:7474/db/data/cypher&quot;,
-  &quot;baseAddress&quot;: &quot;graph&quot;
-}
-</pre> 
-  </div> 
- </div> 
- <div class="section"> 
-  <h3 id="HA_cluster_mode">HA cluster mode</h3> 
-  <p>It is also possible to switch to neo4j HA cluster mode. You can do so by setting the mode to ‘cluster’. This is useful if you want to share neo4j graph data in between multiple vert.x instances.</p> 
-  <div class="source"> 
-   <pre>{
-    &quot;mode&quot;: &quot;cluster&quot;,
-    &quot;path&quot;: &quot;/tmp/graph-master&quot;,
-    &quot;restUrl&quot;: &quot;http://localhost:7474/db/data/cypher&quot;,
-    &quot;baseAddress&quot;: &quot;graph&quot;,
-    &quot;ha.initial_hosts&quot;: &quot;localhost:5001,localhost:5002&quot;,
-    &quot;ha.server_id&quot;: &quot;1&quot;,
-    &quot;ha.server&quot;: &quot;localhost:6001&quot;,
-    &quot;ha.slave_only&quot;: &quot;false&quot;,
-    &quot;ha.cluster_server&quot;: &quot;localhost:5001&quot;
-}
-</pre> 
-  </div> 
-  <p>Please refer to the <a class="externalLink" href="http://docs.neo4j.org/chunked/stable/ha-setup-tutorial.html">neo4j HA documentation</a> for more information about the various neo4j ha settings.</p> 
- </div> 
- <div class="section"> 
-  <h3 id="remote_mode">remote mode</h3> 
-  <div class="source"> 
-   <pre>{
-  &quot;mode&quot;: &quot;remote&quot;,
-  &quot;restUrl&quot;: &quot;http://localhost:7474/db/data/cypher&quot;,
-  &quot;baseAddress&quot;: &quot;graph&quot;
-}
-</pre> 
-  </div> 
  </div> 
 </div>
 			</div>
@@ -183,18 +184,18 @@
 			<ul class="nav nav-list">
 		<li class="dropdown"><a href="#Settings" title="Settings">Settings <b class="caret"></b></a>
 			<ul class="nav nav-list">
-		<li><a href="#mode" title="mode">mode</a>
-		<li><a href="#path" title="path">path</a>
-		<li><a href="#restUrl" title="restUrl">restUrl</a>
-		<li><a href="#baseAddress" title="baseAddress">baseAddress</a>
+		<li class="dropdown"><a href="#mode" title="mode">mode <b class="caret"></b></a>
+			<ul class="nav nav-list">
+		<li><a href="#default" title="default">default</a>
+		<li><a href="#remote" title="remote">remote</a>
+		<li><a href="#gui" title="gui">gui</a>
+		<li><a href="#cluster" title="cluster">cluster</a>
 				<li class="divider"></li>
 			</ul>
 		</li>
-		<li class="dropdown"><a href="#Examples_neo4vertxjson_files" title="Examples neo4vertx.json files">Examples neo4vertx.json files <b class="caret"></b></a>
-			<ul class="nav nav-list">
-		<li><a href="#default_mode" title="default mode">default mode</a>
-		<li><a href="#HA_cluster_mode" title="HA cluster mode">HA cluster mode</a>
-		<li><a href="#remote_mode" title="remote mode">remote mode</a>
+		<li><a href="#path" title="path">path</a>
+		<li><a href="#restUrl" title="restUrl">restUrl</a>
+		<li><a href="#baseAddress" title="baseAddress">baseAddress</a>
 				<li class="divider"></li>
 			</ul>
 		</li>
