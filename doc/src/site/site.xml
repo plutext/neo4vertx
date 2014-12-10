@@ -23,7 +23,7 @@
             <highlightJs>true</highlightJs>
             <brand>
                 <name>neo4vertx</name>
-                <href>${gh-pages.url}</href>
+                <href>index.html</href>
             </brand>
             <slogan>Bridging the gap between Vert.x and Neo4j</slogan>
             <toc>sidebar</toc>

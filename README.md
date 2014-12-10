@@ -1,17 +1,20 @@
 # org.openpcf.neo4vertx 2.0.x
 
-Vert.x module to read and write a Neo4J graph database. Updated to support
-the latest version of Vert.x and Neo4J (both 2.1 at the time of writing).
+Vert.x extension to read and write a Neo4J graph database. 
 
-This module is based originally on the work done by Philip Brüll to make
-Vert.x 2.x talk to Neo4j (https://github.com/phifty/vertx-neo4j-graph).
-
+This extension is based originally on the work done by Philip Brüll to make
+Vert.x talk to Neo4j (https://github.com/phifty/vertx-neo4j-graph).
 
 ## Features
 
  * Maven build to automatically create an extension with dependencies
  * A Vert.x 3.x extension to talk to an embedded Neo4J 2.1 database
  * Enables Neo4j web interface on embedded instances
+ * Neo4j cluster HA support
+
+## Documentation
+
+http://raaftech.github.io/neo4vertx/
 
 ## License
 

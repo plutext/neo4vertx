@@ -1,7 +1,7 @@
 # Configuration
 
 The configuration is stored in a JSON structure. You can pass this configuration
-using the standard Vert.x parameter '-conf' when loading the module or you can
+using the standard Vert.x parameter '-conf' when loading the extension or you can
 put it in 'neo4vertx.json' in the Java resources directory.
 
 ## Settings
@@ -90,6 +90,5 @@ the default localhost:7474, you might want to set remote mode (see previous).
 
 ### baseAddress
 
-This setting controls the baseAddress of the module for Vert.x'es event bus
-purposes. It controls what name you use to talk to neo4vertx.
+This setting controls the baseAddress of the event bus. It controls what name you use to talk to neo4vertx.
 

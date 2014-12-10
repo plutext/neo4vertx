@@ -15,8 +15,7 @@
     <name>neo4vertx</name>
 
     <description>
-        Vert.x module to read and write a Neo4J graph database. Updated to support
-        the latest version of Vert.x and Neo4J (both 2.1 at the time of writing).
+        Vert.x extension to read and write a Neo4j graph database.
     </description>
 
     <url>http://raaftech.github.io/neo4vertx/</url>
