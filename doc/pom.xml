@@ -145,9 +145,10 @@
     <distributionManagement>
         <site>
             <id>github-site</id>
-            <url>scm:git:git@github.com:Jotschi/neo4vertx.git</url>
+            <url>scm:git:git@github.com:raaftech/neo4vertx.git</url>
         </site>
     </distributionManagement>
 
 
 </project>
+
