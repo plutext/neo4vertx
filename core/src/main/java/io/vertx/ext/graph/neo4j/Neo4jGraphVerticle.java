@@ -55,7 +55,7 @@ public class Neo4jGraphVerticle extends AbstractVerticle {
 
     private void initializeConfiguration() {
 
-        if (vertx.context().config().size() == 0) {
+        if (config().size() == 0) {
 
             InputStream inputStream = Neo4jGraphVerticle.class.getResourceAsStream("/neo4vertx.json");
 
@@ -69,7 +69,7 @@ public class Neo4jGraphVerticle extends AbstractVerticle {
             }
 
         } else {
-            configuration = new JsonConfiguration(vertx.context().config());
+            configuration = new JsonConfiguration(config());
         }
     }
 
