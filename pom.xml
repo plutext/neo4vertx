@@ -19,14 +19,12 @@
         the latest version of Vert.x and Neo4J (both 2.1 at the time of writing).
     </description>
 
-    <!-- TODO rename e.g.: https://raaftech.github.io/neo4vertx/ -->
-    <url>http://jotschi.github.io/neo4vertx/</url>
+    <url>http://raaftech.github.io/neo4vertx/</url>
 
     <properties>
         <skip.gpg>true</skip.gpg>
-        <gh-pages.url>http://jotschi.github.io/neo4vertx/</gh-pages.url>
-        <!-- TODO rename e.g.: https://github.com/raaftech/neo4vertx  -->
-        <gh-url>https://github.com/Jotschi/neo4vertx/tree/structure-update</gh-url>
+        <gh-pages.url>http://raaftech.github.io/neo4vertx/</gh-pages.url>
+        <gh-url>https://github.com/raaftech/neo4vertx/tree/dev</gh-url>
     </properties>
 
     <modules>

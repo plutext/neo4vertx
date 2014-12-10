@@ -6,7 +6,7 @@ Make sure to stick to our **Commit Checklist** or your changes most likely won't
 
 Prior to each commit be sure to obey the n commandments of committing:
 
-1. write a **human-readable :) [Changelog](http://jotschi.github.io/neo4vertx/changelog.html)** entry that describes your change
+1. write a **human-readable :) [Changelog](http://raaftech.github.io/neo4vertx/changelog.html)** entry that describes your change
 1. add **unit tests** (if it makes sense)
 1. document your changes in the **maven site**
 1. include this list in a your **pull request**

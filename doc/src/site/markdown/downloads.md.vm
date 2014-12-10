@@ -5,4 +5,4 @@
 
 $h1 Downloads $h1
 
-* [neo4vertx-core - ${project.version}](https://maven.jotschi.de/maven2/...)
+* [neo4vertx-core - ${project.version}](http://http://repo1.maven.org/maven2/org/openpcf/neo4vertx/)
