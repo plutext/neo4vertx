@@ -5,11 +5,13 @@ import io.vertx.ext.graph.neo4j.Configuration;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.neo4j.cypher.javacompat.ExecutionEngine;
 import org.neo4j.cypher.javacompat.ExecutionResult;
@@ -24,9 +26,7 @@ import org.neo4j.server.rest.repr.OutputFormat;
 import org.neo4j.server.rest.repr.formats.JsonFormat;
 import org.openpcf.neo4vertx.Graph;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 
 /**
  * The Neo4jGraph object.
@@ -108,30 +108,47 @@ public class Neo4jGraph implements Graph {
      * 
      * @param request
      * @return
-     * @throws IOException
-     * @throws JsonMappingException
-     * @throws JsonGenerationException
+     * @throws Exception
      */
-    private JsonObject internalQuery(JsonObject request) throws JsonGenerationException, JsonMappingException, IOException {
+    private JsonObject internalQuery(JsonObject request) throws Exception {
         ExecutionEngine engine = new ExecutionEngine(graphDatabaseService);
         ExecutionResult result;
         try (Transaction tx = graphDatabaseService.beginTx()) {
-            try {
-                result = engine.execute(request.getString("query"));
-                String json = transformExecutionResult(result);
-                JsonObject response = new JsonObject(json);
-                tx.success();
-                return response;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
+            result = engine.execute(request.getString("query"));
+            String json = transformExecutionResult(result);
+            JsonObject response = new JsonObject(json);
+            //sanitizeJson(response);
+
+            tx.success();
+            return response;
+        } catch (Exception e) {
+            throw new Exception("Error while evaluating query: {" + request.getString("query") + "}", e);
+        }
+    }
+
+    /**
+     * Removes various bogus attributes which are not useful when executing queries in internal mode.
+     * 
+     * @param response
+     */
+    private void sanitizeJson(JsonObject response) {
+        List<String> keysToBeRemoved = new ArrayList<String>();
+        for (String key : response.getJsonArray("data").getJsonArray(0).getJsonObject(0).fieldNames()) {
+            if ("data".equalsIgnoreCase(key)) {
+                continue;
+            } else {
+                keysToBeRemoved.add(key);
             }
         }
+        for (String key : keysToBeRemoved) {
+            response.getJsonArray("data").getJsonArray(0).getJsonObject(0).remove(key);
+        }
+
     }
 
     private String transformExecutionResult(ExecutionResult result) throws JsonProcessingException, BadInputException, URISyntaxException {
         CypherResultRepresentation repr = new CypherResultRepresentation(result, false, false);
-        OutputFormat format = new OutputFormat(new JsonFormat(), null, null);
+        OutputFormat format = new OutputFormat(new JsonFormat(), new URI("http://localhost:8000"), null);
         return format.assemble(repr);
     }
 
