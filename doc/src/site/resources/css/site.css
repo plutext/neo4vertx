@@ -1,0 +1,11 @@
+.syntaxhighlighter .line {
+    white-space: nowrap !important;
+}
+
+.syntaxhighlighter .line.alt1 {
+    white-space: nowrap !important;
+}
+
+.syntaxhighlighter .line.alt2 {
+    white-space: nowrap !important;
+}

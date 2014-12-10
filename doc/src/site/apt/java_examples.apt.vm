@@ -1,0 +1,61 @@
+    ------
+    neo4vertx Java Examples
+    ------
+    Johannes Schüth
+    ------
+    2014-11-19
+
+
+Intro
+
+  The example classes can be found in the {{{${gh-url}/examples/java/src/main/java/org/openpcf/neo4vertx/examples}neo4vertx-java-examples}} module.
+
+  Each example class contains a main method. Which means each verticle can directly be started. Once started a http server will listen to incoming requests. 
+
+  The http server will store data in the neo4j database and count the stored nodes for each request.  
+
+%{include|source=target/examples/neo4vertx-examples/java/src/main/java/org/openpcf/neo4vertx/examples/AbstractDemoVerticle.java|snippet=#startHttpServer}
+
+  The main means to communicate with the neo4j is the event bus. 
+  The <<<storeNode()>>> method will send a simple create cypher statement to the event bus. 
+  Neo4Vertx will handle this message and execute the query. 
+  There are also more complex means possible to interface with the neo4j which we will cover in the advanded example. 
+
+%{include|source=target/examples/neo4vertx-examples/java/src/main/java/org/openpcf/neo4vertx/examples/AbstractDemoVerticle.java|snippet=#storeNode}
+  
+  The <<<countData()>>> method will query the neo4j for the amount of nodes.
+
+%{include|source=target/examples/neo4vertx-examples/java/src/main/java/org/openpcf/neo4vertx/examples/AbstractDemoVerticle.java|snippet=#countData}
+  
+  EventHandler are used to handle the replies from the neo4j database.
+
+=====================
+
+Simple Example
+
+  The <<<SimpleDemoVerticle>>> examples demonstrates how to use neo4vertx in conjunction with java in its default mode. 
+  By default neo4vertx will startup an embedded neo4j server.
+  
+%{include|source=target/examples/neo4vertx-examples/java/src/main/java/org/openpcf/neo4vertx/examples/SimpleDemoVerticle.java|snippet=AJ:..start()}
+
+Cluster Example
+
+  The <<<ClusterDemoMasterVerticle>>> and <<<ClusterDemoSlaveVerticle>>> examples demonstrate how the neo4j master slave mode can be setup in order to run neo4j in its high availability mode.
+  Startup both verticles and invoke http requests to each of the verticle http servers. Nodes that are created though the slave will also be accessible by the master verticle.
+
+Remote/GUI Example
+
+  The <<<GUIDemoVerticle>>> and <<<RemoteDemoVerticle>>> can be used together to demonstrate the remote api capability.
+  It is possible to use neo4vertx together with an external neo4j database. In this case a <<<restUrl>>> parameter has to be specified. Neo4Vertx will not startup any neo4j embedded database when run in remote mode. 
+  It is also not possible to use the advanced features when in this mode. The gui mode on the other hand will startup an embedded neo4j database and in addition a jetty server which provides a neo4j rest api on port 7474. 
+
+  It is best to startup the GUIDemoVerticle first since it will startup a neo4j with a rest api backend on port 7474. 
+  The remote example verticle can be started afterwards. The remote example will than execute queries using a simple embedded rest client.
+
+Advanced Example 
+
+  The <<<AdvancedDemoVerticle>>> example shows how to access the neo4j graph database directly though java without using the event bus. It is possible to get the neo4j graph database service by calling <<<Neo4jGraphVerticle.getDatabase()>>>.
+
+  The runnable contains a simple request handler that will add a dummy node to the neo4j graph.  
+
+%{include|source=target/examples/neo4vertx-examples/java/src/main/java/org/openpcf/neo4vertx/examples/AdvancedDemoVerticle.java|snippet=AJ:..start()}
