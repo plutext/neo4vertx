@@ -8,9 +8,10 @@
 
 	<head>
 		<meta charset="UTF-8" />
-		<title>neo4vertx - TODOs</title>
+		<title>neo4vertx - neo4vertx Java GUI/Remote Example</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content="" />
+		<meta name="author" content="Johannes SchÃ¼th" />
 		<meta http-equiv="content-language" content="en" />
 
 		<link href="http://netdna.bootstrapcdn.com/bootswatch/2.3.2/spacelab/bootstrap.min.css" rel="stylesheet" />
@@ -35,7 +36,7 @@
 <link rel="shortcut icon" href="favicon.gif" type="image/x-icon"/>
 	</head>
 
-	<body class="page-todos project-neo4vertx-doc" data-spy="scroll" data-offset="60" data-target="#toc-scroll-target">
+	<body class="page-java_example_remote-gui project-neo4vertx-doc" data-spy="scroll" data-offset="60" data-target="#toc-scroll-target">
 
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
@@ -99,13 +100,14 @@
 	<div class="row">
 		<div class="span8">
 			<div class="body-content">
-<div class="page-header">
- <h1 id="todos">TODOs</h1>
-</div> 
-<ul> 
- <li> <p>API: Check whether vert.x 3 extension support can be utilized to simplify neo4vertx integration. Currently a dedicated verticle has to be started.</p></li> 
- <li> <p>Maven: It should be possible to do a site deployment during maven release. Site building should be disabled for all modules except the doc project.</p></li> 
-</ul>
+<div class="section"> 
+ <div class="page-header">
+  <h2 id="Java_GUIRemote_Example">Java GUI/Remote Example</h2>
+ </div> 
+ <p>The <a class="externalLink" href="https://github.com/raaftech/neo4vertx/tree/dev/examples/java/src/main/java/org/openpcf/neo4vertx/examples/GUIDemoVerticle.java">GUIDemoVerticle</a> and <a class="externalLink" href="https://github.com/raaftech/neo4vertx/tree/dev/examples/java/src/main/java/org/openpcf/neo4vertx/examples/RemoteDemoVerticle.java">RemoteDemoVerticle</a> can be used together to demonstrate the remote api capability.</p> 
+ <p>It is possible to use neo4vertx together with an external neo4j database. In this case a <tt>restUrl</tt> parameter has to be specified. Neo4Vertx will not startup any neo4j embedded database when run in remote mode. It is also not possible to use the advanced features when in this mode. The gui mode on the other hand will startup an embedded neo4j database and in addition a jetty server which provides a neo4j rest api on port 7474. </p> 
+ <p>It is best to startup the GUIDemoVerticle first since it will startup a neo4j with a rest api backend on port 7474. The remote example verticle can be started afterwards. The remote example will than execute queries using a simple embedded rest client.</p> 
+</div>
 			</div>
 		</div>
 		<div class="span4">
@@ -113,7 +115,7 @@
 				<div class="well">
 					<ul class="nav nav-list">
 						<li class="nav-header">Table of Contents</li>
-		<li><a href="#todos" title="TODOs">TODOs</a>
+		<li><a href="#Java_GUIRemote_Example" title="Java GUI/Remote Example">Java GUI/Remote Example</a>
 					</ul>
 				</div>
 			</div>
@@ -154,8 +156,8 @@
 						<li >
 							<a href="https://github.com/raaftech/neo4vertx/tree/dev" title="Github" class="externalLink">Github</a>
 						</li>
-						<li class="active">
-							<a href="#" title="Todos">Todos</a>
+						<li >
+							<a href="todos.html" title="Todos">Todos</a>
 						</li>
 					</ul>
 				</div>

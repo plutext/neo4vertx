@@ -8,9 +8,10 @@
 
 	<head>
 		<meta charset="UTF-8" />
-		<title>neo4vertx - TODOs</title>
+		<title>neo4vertx - neo4vertx Java Cluster Example</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content="" />
+		<meta name="author" content="Johannes SchÃ¼th" />
 		<meta http-equiv="content-language" content="en" />
 
 		<link href="http://netdna.bootstrapcdn.com/bootswatch/2.3.2/spacelab/bootstrap.min.css" rel="stylesheet" />
@@ -35,7 +36,7 @@
 <link rel="shortcut icon" href="favicon.gif" type="image/x-icon"/>
 	</head>
 
-	<body class="page-todos project-neo4vertx-doc" data-spy="scroll" data-offset="60" data-target="#toc-scroll-target">
+	<body class="page-java_example_cluster project-neo4vertx-doc" data-spy="scroll" data-offset="60" data-target="#toc-scroll-target">
 
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
@@ -99,13 +100,12 @@
 	<div class="row">
 		<div class="span8">
 			<div class="body-content">
-<div class="page-header">
- <h1 id="todos">TODOs</h1>
-</div> 
-<ul> 
- <li> <p>API: Check whether vert.x 3 extension support can be utilized to simplify neo4vertx integration. Currently a dedicated verticle has to be started.</p></li> 
- <li> <p>Maven: It should be possible to do a site deployment during maven release. Site building should be disabled for all modules except the doc project.</p></li> 
-</ul>
+<div class="section"> 
+ <div class="page-header">
+  <h2 id="Java_Cluster_Example">Java Cluster Example</h2>
+ </div> 
+ <p>The <a class="externalLink" href="https://github.com/raaftech/neo4vertx/tree/dev/examples/java/src/main/java/org/openpcf/neo4vertx/examples/ClusterDemoMasterVerticle.java">ClusterDemoMasterVerticle</a> and <a class="externalLink" href="https://github.com/raaftech/neo4vertx/tree/dev/examples/java/src/main/java/org/openpcf/neo4vertx/examples/ClusterDemoSlaveVerticle.java">ClusterDemoSlaveVerticle</a> examples demonstrate how the neo4j master slave mode can be setup in order to run neo4j in its high availability mode. Startup both verticles and invoke http requests to each of the verticle http servers. Nodes that are created though the slave will also be accessible by the master verticle.</p> 
+</div>
 			</div>
 		</div>
 		<div class="span4">
@@ -113,7 +113,7 @@
 				<div class="well">
 					<ul class="nav nav-list">
 						<li class="nav-header">Table of Contents</li>
-		<li><a href="#todos" title="TODOs">TODOs</a>
+		<li><a href="#Java_Cluster_Example" title="Java Cluster Example">Java Cluster Example</a>
 					</ul>
 				</div>
 			</div>
@@ -154,8 +154,8 @@
 						<li >
 							<a href="https://github.com/raaftech/neo4vertx/tree/dev" title="Github" class="externalLink">Github</a>
 						</li>
-						<li class="active">
-							<a href="#" title="Todos">Todos</a>
+						<li >
+							<a href="todos.html" title="Todos">Todos</a>
 						</li>
 					</ul>
 				</div>
