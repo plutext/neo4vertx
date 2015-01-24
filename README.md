@@ -1,6 +1,14 @@
-# org.openpcf.neo4vertx 2.0.x
+# org.openpcf.neo4vertx 3.0.x
 
 Vert.x extension to read and write a Neo4J graph database. 
+
+## Documentation
+
+http://raaftech.github.io/neo4vertx/
+
+# Info
+
+The vertx-2 branch contains the vert.x 2 version of this extension.
 
 This extension is based originally on the work done by Philip Brüll to make
 Vert.x talk to Neo4j (https://github.com/phifty/vertx-neo4j-graph).
@@ -11,10 +19,6 @@ Vert.x talk to Neo4j (https://github.com/phifty/vertx-neo4j-graph).
  * A Vert.x 3.x extension to talk to an embedded Neo4J 2.1 database
  * Enables Neo4j web interface on embedded instances
  * Neo4j cluster HA support
-
-## Documentation
-
-http://raaftech.github.io/neo4vertx/
 
 ## License
 
