@@ -9,3 +9,11 @@
 .syntaxhighlighter .line.alt2 {
     white-space: nowrap !important;
 }
+
+.syntaxhighlighter .keyword {
+	margin: 0 0 0 -8px !important;
+}
+
+.syntaxhighlighter {
+	font-size: small !important;
+}

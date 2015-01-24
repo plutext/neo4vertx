@@ -12,7 +12,6 @@
             <outputDirectory>neo4vertx-examples</outputDirectory>
             <excludes>
                 <exclude>**/target/**</exclude>
-                <exclude>**/pom.xml</exclude>
                 <exclude>**/examples.xml</exclude>
                 <exclude>**/mods/**</exclude>
                 <exclude>**/.*/**</exclude>

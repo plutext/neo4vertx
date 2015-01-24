@@ -14,7 +14,7 @@ import org.neo4j.graphdb.Transaction;
  *
  * @author https://github.com/Jotschi[Johannes Schüth]
  */
-public class AdvancedDemoVerticle extends AbstractDemoVerticle {
+public class AdvancedDemoVerticle extends AbstractHttpDemoVerticle {
 
     public static final int HTTP_PORT = 8080;
 
@@ -25,7 +25,7 @@ public class AdvancedDemoVerticle extends AbstractDemoVerticle {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        deployVerticle(AdvancedDemoVerticle.class.getCanonicalName(), null);
+        deployVerticle(AdvancedDemoVerticle.class, null);
         keepProcessAlive();
     }
 
@@ -35,7 +35,7 @@ public class AdvancedDemoVerticle extends AbstractDemoVerticle {
         logger.info("Starting " + getClass().getName());
 
         // Start the neo4vertx verticle that will provide neo4j support
-        startNeo4Vertx("neo4vertx_default.json");
+        deployNeo4Vertx("neo4vertx_default.json");
 
         // Request handler for http requests
         Runnable requestHandler = () -> {

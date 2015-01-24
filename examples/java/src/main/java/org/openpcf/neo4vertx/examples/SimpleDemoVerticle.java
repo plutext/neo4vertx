@@ -7,7 +7,7 @@ import java.io.IOException;
  *
  * @author https://github.com/Jotschi[Johannes Schüth]
  */
-public class SimpleDemoVerticle extends AbstractDemoVerticle {
+public class SimpleDemoVerticle extends AbstractHttpDemoVerticle {
 
     public static final int HTTP_PORT = 8080;
 
@@ -18,7 +18,7 @@ public class SimpleDemoVerticle extends AbstractDemoVerticle {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        deployVerticle(SimpleDemoVerticle.class.getCanonicalName(), null);
+        deployVerticle(SimpleDemoVerticle.class, null);
         keepProcessAlive();
     }
 
@@ -28,7 +28,7 @@ public class SimpleDemoVerticle extends AbstractDemoVerticle {
         logger.info("Starting " + getClass().getName());
 
         // Start the neo4vertx verticle that will provide neo4j support
-        startNeo4Vertx("neo4vertx_default.json");
+        deployNeo4Vertx("neo4vertx_default.json");
         startHttpServer(HTTP_PORT, insertReply -> {
             if (insertReply.failed()) {
                 logger.error("Storing failed", insertReply.cause());
