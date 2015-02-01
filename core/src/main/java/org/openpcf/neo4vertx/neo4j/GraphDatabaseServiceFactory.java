@@ -1,6 +1,6 @@
 package org.openpcf.neo4vertx.neo4j;
 
-import io.vertx.ext.graph.neo4j.Configuration;
+import io.vertx.ext.graph.neo4j.Neo4VertxConfiguration;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 
@@ -26,6 +26,6 @@ public interface GraphDatabaseServiceFactory {
      * @param configuration configuration that should be used for service creation.
      * @return neo4j service.
      */
-    public GraphDatabaseService create(Configuration configuration);
+    public GraphDatabaseService create(Neo4VertxConfiguration configuration);
 
 }

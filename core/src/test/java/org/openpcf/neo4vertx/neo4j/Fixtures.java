@@ -1,8 +1,7 @@
 package org.openpcf.neo4vertx.neo4j;
 
 import io.vertx.core.json.JsonObject;
-import io.vertx.ext.graph.neo4j.Configuration;
-import io.vertx.ext.graph.neo4j.json.JsonConfiguration;
+import io.vertx.ext.graph.neo4j.Neo4VertxConfiguration;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,7 +27,7 @@ public class Fixtures {
     public static final String UPDATE_TEST_ENTITY_QUERY = String.format("MATCH (n {uuid: '%s'}) SET n.value = '%s' RETURN n.uuid, n.desc, n.value", NEO4VERTX_TEST_ENTITY_UUID, NEO4VERTX_TEST_ENTITY_UPDATED_VALUE);
     public static final String DELETE_TEST_ENTITY_QUERY = String.format("MATCH (n {uuid: '%s'}) DELETE n", NEO4VERTX_TEST_ENTITY_UUID);
 
-    public static Configuration getConfig() {
+    public static Neo4VertxConfiguration getConfig() {
 
         InputStream inputStream = Neo4jGraphTest.class.getResourceAsStream("/neo4vertx.json");
 
@@ -41,11 +40,11 @@ public class Fixtures {
                 stringBuilder.append(inputString);
 
             JsonObject jsonObject = new JsonObject(stringBuilder.toString());
-            return new JsonConfiguration(jsonObject);
+            return new Neo4VertxConfiguration(jsonObject);
 
         } catch (IOException e) {
             e.printStackTrace();
-            return new JsonConfiguration(new JsonObject(""));
+            return new Neo4VertxConfiguration(new JsonObject(""));
         }
     }
 

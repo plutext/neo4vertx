@@ -1,7 +1,7 @@
 package org.openpcf.neo4vertx.neo4j;
 
 import io.vertx.core.json.JsonObject;
-import io.vertx.ext.graph.neo4j.Configuration;
+import io.vertx.ext.graph.neo4j.Neo4VertxConfiguration;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -20,6 +20,8 @@ import org.neo4j.graphdb.Transaction;
 import org.neo4j.kernel.GraphDatabaseAPI;
 import org.neo4j.server.Bootstrapper;
 import org.neo4j.server.WrappingNeoServerBootstrapper;
+import org.neo4j.server.configuration.Configurator;
+import org.neo4j.server.configuration.ServerConfigurator;
 import org.neo4j.server.rest.repr.BadInputException;
 import org.neo4j.server.rest.repr.CypherResultRepresentation;
 import org.neo4j.server.rest.repr.OutputFormat;
@@ -46,7 +48,7 @@ public class Neo4jGraph implements Graph {
     private Bootstrapper bootStrapper;
     private GraphDatabaseService graphDatabaseService;
     private String restUrl;
-    private Configuration configuration;
+    private Neo4VertxConfiguration configuration;
 
     /**
      * Create a Neo4j graph instance.
@@ -55,7 +57,7 @@ public class Neo4jGraph implements Graph {
      *            configuration for the graph.
      * @throws Exception
      */
-    public Neo4jGraph(Configuration conf) throws Exception {
+    public Neo4jGraph(Neo4VertxConfiguration conf) throws Exception {
         configuration = conf;
         initialize();
     }
@@ -78,7 +80,9 @@ public class Neo4jGraph implements Graph {
             break;
         case GUI_MODE:
             graphDatabaseService = new Neo4jGraphDatabaseServiceFactory().create(configuration);
-            bootStrapper = new WrappingNeoServerBootstrapper((GraphDatabaseAPI) graphDatabaseService);
+            ServerConfigurator webConfig = new ServerConfigurator((GraphDatabaseAPI) graphDatabaseService);
+            webConfig.configuration().setProperty(Configurator.WEBSERVER_ADDRESS_PROPERTY_KEY, configuration.getWebServerBindAddress());
+            bootStrapper = new WrappingNeoServerBootstrapper((GraphDatabaseAPI) graphDatabaseService, webConfig);
             bootStrapper.start();
             break;
         case REMOTE_MODE:

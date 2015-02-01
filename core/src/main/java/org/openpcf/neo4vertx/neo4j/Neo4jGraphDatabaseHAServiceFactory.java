@@ -1,6 +1,6 @@
 package org.openpcf.neo4vertx.neo4j;
 
-import io.vertx.ext.graph.neo4j.Configuration;
+import io.vertx.ext.graph.neo4j.Neo4VertxConfiguration;
 
 import org.neo4j.cluster.ClusterSettings;
 import org.neo4j.graphdb.GraphDatabaseService;
@@ -36,7 +36,7 @@ public class Neo4jGraphDatabaseHAServiceFactory implements GraphDatabaseServiceF
     }
 
     @Override
-    public GraphDatabaseService create(Configuration configuration) {
+    public GraphDatabaseService create(Neo4VertxConfiguration configuration) {
         GraphDatabaseBuilder builder = new HighlyAvailableGraphDatabaseFactory().newHighlyAvailableDatabaseBuilder(configuration.getPath());
 
         // Set various HA settings we support

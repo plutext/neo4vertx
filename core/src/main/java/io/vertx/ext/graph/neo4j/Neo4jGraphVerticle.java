@@ -2,15 +2,11 @@ package io.vertx.ext.graph.neo4j;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;
+import io.vertx.core.eventbus.MessageConsumer;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.impl.LoggerFactory;
-import io.vertx.ext.graph.neo4j.json.JsonConfiguration;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.commons.io.IOUtils;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.openpcf.neo4vertx.Graph;
 import org.openpcf.neo4vertx.neo4j.Neo4jGraph;
@@ -25,8 +21,9 @@ import org.openpcf.neo4vertx.neo4j.Neo4jGraph;
 public class Neo4jGraphVerticle extends AbstractVerticle {
 
     private static final Logger logger = LoggerFactory.getLogger(Neo4jGraphVerticle.class);
-    private Configuration configuration;
+    private Neo4VertxConfiguration configuration;
     private static Graph database;
+    private MessageConsumer<JsonObject> queryMessageConsumer;
 
     @Override
     public void start() throws Exception {
@@ -44,6 +41,9 @@ public class Neo4jGraphVerticle extends AbstractVerticle {
             database.shutdown();
             database = null;
         }
+        if (queryMessageConsumer != null) {
+            queryMessageConsumer.unregister();
+        }
     }
 
     public static GraphDatabaseService getDatabase() throws Exception {
@@ -55,22 +55,13 @@ public class Neo4jGraphVerticle extends AbstractVerticle {
 
     private void initializeConfiguration() {
 
+        // No configuration was set. Use default settings
         if (config().size() == 0) {
-
-            InputStream inputStream = Neo4jGraphVerticle.class.getResourceAsStream("/neo4vertx.json");
-
-            try {
-                String jsonText = IOUtils.toString(inputStream);
-                JsonObject jsonObject = new JsonObject(jsonText);
-                configuration = new JsonConfiguration(jsonObject);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        } else {
-            configuration = new JsonConfiguration(config());
+            config().put(Neo4VertxConfiguration.MODE_KEY, "default");
+            config().put(Neo4VertxConfiguration.PATH_KEY, "path");
+            config().put(Neo4VertxConfiguration.BASE_ADDR_KEY, "neo4j-graph");
         }
+        configuration = new Neo4VertxConfiguration(config());
     }
 
     private void initializeDatabase() throws Exception {
@@ -83,16 +74,17 @@ public class Neo4jGraphVerticle extends AbstractVerticle {
         JsonObject reply = new JsonObject();
         reply.put("type", "reply message");
 
-        eb.<JsonObject> consumer(configuration.getBaseAddress() + ".cypher.query").handler(msg -> {
+        queryMessageConsumer = eb.<JsonObject> consumer(configuration.getBaseAddress() + ".cypher.query").handler(msg -> {
             if (msg.replyAddress() != null) {
                 try {
                     msg.reply(database.query(msg.body()));
                 } catch (Exception e) {
-                    logger.error("Error druing query handling:" + msg.body() , e);
+                    logger.error("Error druing query handling:" + msg.body(), e);
                     e.printStackTrace();
                     msg.fail(1, "Query failed: " + e.getMessage());
+                }
             }
-        }
-    }   );
+        });
+        
     }
 }

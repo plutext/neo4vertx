@@ -1,6 +1,6 @@
 package org.openpcf.neo4vertx.neo4j;
 
-import io.vertx.ext.graph.neo4j.Configuration;
+import io.vertx.ext.graph.neo4j.Neo4VertxConfiguration;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
@@ -32,7 +32,7 @@ public class Neo4jGraphDatabaseServiceFactory implements GraphDatabaseServiceFac
     }
 
     @Override
-    public GraphDatabaseService create(Configuration configuration) {
+    public GraphDatabaseService create(Neo4VertxConfiguration configuration) {
         return create(configuration.getPath());
     }
 

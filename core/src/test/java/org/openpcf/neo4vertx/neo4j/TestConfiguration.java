@@ -1,6 +1,6 @@
 package org.openpcf.neo4vertx.neo4j;
 
-import io.vertx.ext.graph.neo4j.Configuration;
+import io.vertx.ext.graph.neo4j.Neo4VertxConfiguration;
 
 /**
  * Stub for the test configuration.
@@ -8,7 +8,7 @@ import io.vertx.ext.graph.neo4j.Configuration;
  * @author https://github.com/rubin55[Rubin Simons]
  * @author https://github.com/Jotschi[Johannes Schüth]
  */
-public class TestConfiguration implements Configuration {
+public class TestConfiguration extends Neo4VertxConfiguration {
 
     @Override
     public String getMode() {
