@@ -74,7 +74,7 @@ public class Neo4VertxConfiguration {
         baseAddress = jsonConfig.getString(BASE_ADDR_KEY, DEFAULT_BASE_ADDRESS);
         haInitialHosts = jsonConfig.getString(HA_INITIAL_HOSTS_KEY, null);
         haClusterServer = jsonConfig.getString(HA_CLUSTER_SERVER_KEY, ClusterSettings.cluster_server.getDefaultValue());
-        haSlaveOnly = Boolean.valueOf(jsonConfig.getBoolean(HA_SLAVE_ONLY_KEY));
+        haSlaveOnly = jsonConfig.getBoolean(HA_SLAVE_ONLY_KEY, false);
         haServer = jsonConfig.getString(HA_SERVER_KEY, HaSettings.ha_server.getDefaultValue());
         haServerId = jsonConfig.getString(HA_SERVER_ID_KEY, null);
     }
