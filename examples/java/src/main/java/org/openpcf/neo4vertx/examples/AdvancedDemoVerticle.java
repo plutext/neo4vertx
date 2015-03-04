@@ -41,7 +41,7 @@ public class AdvancedDemoVerticle extends AbstractHttpDemoVerticle {
         Runnable requestHandler = () -> {
             try {
                 logger.info("Handling request.");
-                GraphDatabaseService db = Neo4jGraphVerticle.getDatabase();
+                GraphDatabaseService db = Neo4jGraphVerticle.getDatabaseService();
                 try (Transaction tx = db.beginTx()) {
                     Node node = db.createNode(DynamicLabel.label("Dummy Node"));
                     node.setProperty("message", "Hello, ");

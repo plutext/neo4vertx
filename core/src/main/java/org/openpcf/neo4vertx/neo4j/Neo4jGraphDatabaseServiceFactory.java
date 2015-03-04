@@ -18,7 +18,6 @@ public class Neo4jGraphDatabaseServiceFactory implements GraphDatabaseServiceFac
     public GraphDatabaseService create(String path) {
         GraphDatabaseService graphDatabaseService = new GraphDatabaseFactory().newEmbeddedDatabaseBuilder(path).newGraphDatabase();
         registerShutdownHook(graphDatabaseService);
-
         return graphDatabaseService;
     }
 

@@ -23,6 +23,7 @@ public class Neo4jGraphVerticle extends AbstractVerticle {
     private static final Logger logger = LoggerFactory.getLogger(Neo4jGraphVerticle.class);
     private Neo4VertxConfiguration configuration;
     private static Graph database;
+    private static GraphDatabaseService service;
     private MessageConsumer<JsonObject> queryMessageConsumer;
 
     @Override
@@ -46,11 +47,23 @@ public class Neo4jGraphVerticle extends AbstractVerticle {
         }
     }
 
-    public static GraphDatabaseService getDatabase() throws Exception {
+    public static GraphDatabaseService getDatabaseService() throws Exception {
+        if (service != null) {
+            return service;
+        }
         if (database == null) {
             throw new Exception("Database not yet initalized.");
         }
         return database.getGraphDatabaseService();
+    }
+
+    /**
+     * Set the database service. This is useful when you want to inject your 
+     * own database service for testing purposes.
+     * @param service
+     */
+    public static void setDatabaseService(GraphDatabaseService service) {
+        Neo4jGraphVerticle.service = service;
     }
 
     private void initializeConfiguration() {
