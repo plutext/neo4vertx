@@ -1,5 +1,7 @@
 package io.vertx.ext.graph.neo4j;
 
+import java.lang.reflect.Constructor;
+
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.eventbus.MessageConsumer;
@@ -8,8 +10,10 @@ import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.impl.LoggerFactory;
 
 import org.neo4j.graphdb.GraphDatabaseService;
-import org.openpcf.neo4vertx.Graph;
-import org.openpcf.neo4vertx.neo4j.Neo4jGraph;
+import org.openpcf.neo4vertx.neo4j.service.ClusterHAGraphService;
+import org.openpcf.neo4vertx.neo4j.service.EmbeddedGraphService;
+import org.openpcf.neo4vertx.neo4j.service.GraphService;
+import org.openpcf.neo4vertx.neo4j.service.RemoteGraphService;
 
 /**
  * The Neo4jGraphModule object.
@@ -21,14 +25,20 @@ import org.openpcf.neo4vertx.neo4j.Neo4jGraph;
 public class Neo4jGraphVerticle extends AbstractVerticle {
 
     private static final Logger logger = LoggerFactory.getLogger(Neo4jGraphVerticle.class);
+
+    public final static String DEFAULT_MODE = "default";
+    public final static String CLUSTER_MODE = "cluster";
+    public final static String REMOTE_MODE = "remote";
+    public final static String GUI_MODE = "gui";
+
     private Neo4VertxConfiguration configuration;
-    private static Graph database;
+    private static GraphService graphService;
     private static GraphDatabaseService service;
     private MessageConsumer<JsonObject> queryMessageConsumer;
 
     @Override
     public void start() throws Exception {
-        if (database != null) {
+        if (graphService != null) {
             throw new Exception("Verticle has already been initiated. Only a single instance of this verticle is allowed.");
         }
         initializeConfiguration();
@@ -38,9 +48,9 @@ public class Neo4jGraphVerticle extends AbstractVerticle {
 
     @Override
     public void stop() throws Exception {
-        if (database != null) {
-            database.shutdown();
-            database = null;
+        if (graphService != null) {
+            graphService.shutdown();
+            graphService = null;
         }
         if (queryMessageConsumer != null) {
             queryMessageConsumer.unregister();
@@ -51,15 +61,15 @@ public class Neo4jGraphVerticle extends AbstractVerticle {
         if (service != null) {
             return service;
         }
-        if (database == null) {
+        if (graphService == null) {
             throw new Exception("Database not yet initalized.");
         }
-        return database.getGraphDatabaseService();
+        return graphService.getGraphDatabaseService();
     }
 
     /**
-     * Set the database service. This is useful when you want to inject your 
-     * own database service for testing purposes.
+     * Set the database service. This is useful when you want to inject your own database service for testing purposes.
+     * 
      * @param service
      */
     public static void setDatabaseService(GraphDatabaseService service) {
@@ -78,7 +88,34 @@ public class Neo4jGraphVerticle extends AbstractVerticle {
     }
 
     private void initializeDatabase() throws Exception {
-        database = new Neo4jGraph(configuration);
+        final String mode = configuration.getMode();
+
+        switch (mode) {
+        case DEFAULT_MODE:
+            graphService = new EmbeddedGraphService(configuration);
+            break;
+        case CLUSTER_MODE:
+            graphService = new ClusterHAGraphService(configuration);
+            break;
+        case GUI_MODE:
+            String clazzName = "org.openpcf.neo4vertx.neo4j.service.GuiGraphService";
+            try {
+                @SuppressWarnings("unchecked")
+                Class<? extends GraphService> c = (Class<? extends GraphService>) Class.forName(clazzName);
+                Constructor<? extends GraphService> constructor = c.getConstructor(Neo4VertxConfiguration.class);
+                graphService = constructor.newInstance(configuration);
+            } catch (ClassNotFoundException e) {
+                logger.error("Could not initalize gui mode. Please add the neo4vertx-gui-extension to your classpath first.");
+                throw e;
+            }
+            break;
+        case REMOTE_MODE:
+            graphService = new RemoteGraphService(configuration);
+            break;
+        default:
+            throw new Exception("Invalid mode " + mode + " specified");
+        }
+
     }
 
     private void registerQueryHandler() {
@@ -90,7 +127,7 @@ public class Neo4jGraphVerticle extends AbstractVerticle {
         queryMessageConsumer = eb.<JsonObject> consumer(configuration.getBaseAddress() + ".cypher.query").handler(msg -> {
             if (msg.replyAddress() != null) {
                 try {
-                    msg.reply(database.query(msg.body()));
+                    msg.reply(graphService.query(msg.body()));
                 } catch (Exception e) {
                     logger.error("Error druing query handling:" + msg.body(), e);
                     e.printStackTrace();
@@ -98,6 +135,6 @@ public class Neo4jGraphVerticle extends AbstractVerticle {
                 }
             }
         });
-        
+
     }
 }

@@ -8,7 +8,8 @@ import io.vertx.core.json.JsonObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openpcf.neo4vertx.Graph;
+import org.openpcf.neo4vertx.neo4j.service.EmbeddedGraphService;
+import org.openpcf.neo4vertx.neo4j.service.GraphService;
 
 /**
  * The Neo4jGraphTest object.
@@ -19,18 +20,18 @@ import org.openpcf.neo4vertx.Graph;
  */
 public class Neo4jGraphTest {
 
-    protected Graph graph;
+    protected GraphService service;
 
     @Before
     public void setUp() throws Exception {
-        graph = new Neo4jGraph(new TestConfiguration());
+        service = new EmbeddedGraphService(new TestConfiguration());
         deleteTestEntity();
     }
 
     @After
     public void tearDown() throws Exception {
         deleteTestEntity();
-        graph.shutdown();
+        service.shutdown();
     }
 
     @Test
@@ -50,7 +51,7 @@ public class Neo4jGraphTest {
 
     protected JsonObject executeQuery(String queryString) throws Exception {
         JsonObject queryJson = new JsonObject("{ \"query\":\"" + queryString + "\", \"params\":{} }");
-        return graph.query(queryJson);
+        return service.query(queryJson);
     }
 
     protected String createTestEntity() throws Exception {

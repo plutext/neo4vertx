@@ -4,11 +4,11 @@ import io.vertx.core.json.JsonObject;
 
 import java.io.File;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.neo4j.cluster.ClusterSettings;
 import org.neo4j.kernel.ha.HaSettings;
-import org.openpcf.neo4vertx.neo4j.Neo4jGraph;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The Configuration interface.
@@ -68,7 +68,7 @@ public class Neo4VertxConfiguration {
 
     public Neo4VertxConfiguration(JsonObject jsonConfig) {
         webServerBindAddress = jsonConfig.getString(WEB_SERVER_BIND_ADDRESS_KEY, DEFAULT_WEBSERVER_BIND_ADDRESS);
-        mode = jsonConfig.getString(MODE_KEY, Neo4jGraph.DEFAULT_MODE);
+        mode = jsonConfig.getString(MODE_KEY, Neo4jGraphVerticle.DEFAULT_MODE);
         path = jsonConfig.getString(PATH_KEY, DEFAULT_PATH);
         restUrl = jsonConfig.getString(REST_URL_KEY, DEFAULT_REST_URL);
         baseAddress = jsonConfig.getString(BASE_ADDR_KEY, DEFAULT_BASE_ADDRESS);
