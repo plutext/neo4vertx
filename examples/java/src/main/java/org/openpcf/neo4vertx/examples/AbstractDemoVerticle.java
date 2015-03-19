@@ -60,7 +60,7 @@ abstract class AbstractDemoVerticle extends AbstractVerticle {
     }
 
     public void undeployVerticle(String deploymentId) {
-        vertx.undeployVerticle(deploymentId);
+        vertx.undeploy(deploymentId);
     }
 
     @Override
