@@ -12,14 +12,14 @@
     <description>Neo4Vertx Examples - Java Apex REST</description>
 
     <properties>
-        <vertx.version>3.0.0-milestone2</vertx.version>
+        <vertx.version>3.0.0-milestone3</vertx.version>
     </properties>
 
     <dependencies>
         <dependency>
             <artifactId>neo4vertx-core</artifactId>
             <groupId>org.openpcf</groupId>
-            <version>2.0.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.vertx</groupId>
