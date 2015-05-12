@@ -17,7 +17,7 @@
 
     <properties>
         <skip.gpg>true</skip.gpg>
-        <neo4j.version>2.1.7</neo4j.version>
+        <neo4j.version>2.1.8</neo4j.version>
         <gh-pages.url>http://raaftech.github.io/neo4vertx/</gh-pages.url>
         <gh-url>https://github.com/raaftech/neo4vertx/tree/dev</gh-url>
         <vertx.version>3.0.0-milestone5</vertx.version>
