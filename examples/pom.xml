@@ -16,7 +16,7 @@
 
     <modules>
         <module>java</module>
-        <module>java-apex-rest</module>
+        <module>java-web-rest</module>
         <module>javascript</module>
     </modules>
 
