@@ -20,7 +20,7 @@
         <neo4j.version>2.2.2</neo4j.version>
         <gh-pages.url>http://raaftech.github.io/neo4vertx/</gh-pages.url>
         <gh-url>https://github.com/raaftech/neo4vertx/tree/dev</gh-url>
-        <vertx.version>3.0.0-milestone6</vertx.version>
+        <vertx.version>3.0.0</vertx.version>
         <junit.version>4.12</junit.version>
 
         <!--Plugin versions -->

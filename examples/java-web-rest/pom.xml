@@ -8,11 +8,11 @@
     <version>2.0.0-SNAPSHOT</version>
 
     <packaging>jar</packaging>
-    <name>neo4vertx - Examples - Java Apex REST</name>
-    <description>Neo4Vertx Examples - Java Apex REST</description>
+    <name>neo4vertx - Examples - Java Web REST</name>
+    <description>Neo4Vertx Examples - Java Web REST</description>
 
     <properties>
-        <vertx.version>3.0.0-milestone6</vertx.version>
+        <vertx.version>3.0.0</vertx.version>
     </properties>
 
     <dependencies>
@@ -46,6 +46,15 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                    <skipDeploy>true</skipDeploy>
+                    <generateReports>false</generateReports>
                 </configuration>
             </plugin>
         </plugins>

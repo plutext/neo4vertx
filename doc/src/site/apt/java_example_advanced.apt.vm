@@ -12,4 +12,4 @@ Advanced Java Example
 
   The runnable contains a simple request handler that will add a dummy node to the neo4j graph.  
 
-%{include|source=target/examples/neo4vertx-examples/java/src/main/java/org/openpcf/neo4vertx/examples/AdvancedDemoVerticle.java|snippet=AJ:..start()}
+%{include|source=doc/target/examples/neo4vertx-examples/java/src/main/java/org/openpcf/neo4vertx/examples/AdvancedDemoVerticle.java|snippet=AJ:..start()}
